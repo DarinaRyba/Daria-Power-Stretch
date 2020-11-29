@@ -24,7 +24,7 @@ function workoutsController(workoutSchema) {
       if (workoutsError) {
         return res.send(workoutsError);
       }
-      return res.send(workout);
+      return res.json(workout);
     });
   }
 
@@ -33,7 +33,7 @@ function workoutsController(workoutSchema) {
       if (workoutsError) {
         return res.send(workoutsError);
       }
-      return res.send(workout);
+      return res.json(workout);
     });
   }
 
