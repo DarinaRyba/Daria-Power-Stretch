@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import './index.css'
 import Header from './components/Header/Header'
+import WorkoutDetail from './components/WorkoutDetail/WorkoutDetail'
 
 ReactDOM.render(
   <React.StrictMode>
     <Header/>
+    <WorkoutDetail/>
   </React.StrictMode>,
   document.getElementById('root')
 );
