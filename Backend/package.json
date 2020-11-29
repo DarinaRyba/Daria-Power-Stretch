@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "set DEBUG=app & nodemon index.js",
+    "debug": "node --inspect-brk index.js --runInBand",
+    "test": "jest --collect-coverage --watchAll"
   },
   "keywords": [],
   "author": "",
