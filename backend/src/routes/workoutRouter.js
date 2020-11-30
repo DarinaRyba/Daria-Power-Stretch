@@ -2,7 +2,7 @@ const { Router } = require('express');
 const workoutsController = require('../controllers/workoutsController');
 const workoutController = require('../controllers/workoutController');
 
-function workoutRouter(workoutSchema) {
+function workoutRouter (workoutSchema) {
   const router = Router();
   const workouts = workoutsController(workoutSchema);
   const workout = workoutController(workoutSchema);

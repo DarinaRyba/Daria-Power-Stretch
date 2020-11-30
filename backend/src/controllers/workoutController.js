@@ -1,5 +1,5 @@
-function workoutController(workoutSchema) {
-  function getWorkoutMethod(req, res) {
+function workoutController (workoutSchema) {
+  function getWorkoutMethod (req, res) {
     const query = { _id: req.params.workoutId };
     workoutSchema.findOne(query, (workoutsError, workout) => {
       if (workoutsError) {

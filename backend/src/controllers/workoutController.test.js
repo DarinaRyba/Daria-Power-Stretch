@@ -4,12 +4,12 @@ const workoutController = require('./workoutController')(workoutSchema);
 describe('workoutController', () => {
   describe('GetMethod', () => {
     test('should call json', () => {
-      res = {
-        json: jest.fn(),
+      const res = {
+        json: jest.fn()
       };
 
-      req = {
-        params: { workoutId: '1' },
+      const req = {
+        params: { workoutId: '1' }
       };
 
       workoutSchema.findOne = jest.fn().mockImplementationOnce((query, callback) => {
@@ -22,13 +22,13 @@ describe('workoutController', () => {
     });
 
     test('should call json with an error', () => {
-      res = {
+      const res = {
         json: jest.fn(),
-        send: jest.fn(),
+        send: jest.fn()
       };
 
-      req = {
-        params: { workoutId: '1' },
+      const req = {
+        params: { workoutId: '1' }
       };
 
       workoutSchema.findOne = jest.fn().mockImplementationOnce((query, callback) => {
