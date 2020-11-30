@@ -1,6 +1,6 @@
 import { actionTypes } from '../actions/actionTypes';
 
-export default function workoutReducer (state = {}, action) {
+export default function workoutReducer (state = {}, action: any) {
   switch (action.type) {
     case actionTypes.LOAD_WORKOUTS:
       return { ...state, workouts: action.workouts };
@@ -10,6 +10,7 @@ export default function workoutReducer (state = {}, action) {
       return { ...state, workout: action.workout };
     case actionTypes.LOAD_WORKOUT_ERROR:
       return { ...state, errorWorkout: action.workoutError };
-    default: state;
+    default:
+      return state;
   }
 }

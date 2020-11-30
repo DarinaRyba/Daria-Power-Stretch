@@ -1,16 +1,16 @@
-import { Workouts, LoadWorkoutsAction, LoadWorkoutsErrorAction, actionTypes } from './actionTypes';
+import { Workouts, LoadWorkoutsAction, LoadWorkoutAction, LoadWorkoutsErrorAction, LoadWorkoutErrorAction, actionTypes } from './actionTypes';
 import axios from 'axios';
 
 const serverWorkoutsUrl = 'http://localhost:2050/workouts';
 
-export function requestWorkoutsSuccess (workouts: Workouts[]): LoadWorkoutsAction {
+export function requestWorkoutsSuccess (workouts: Workouts[]) {
   return {
     type: actionTypes.LOAD_WORKOUTS,
     workouts
   };
 }
 
-export function requestWorkoutsError (workoutsError: string): LoadWorkoutsErrorAction {
+export function requestWorkoutsError (workoutsError: string) {
   return {
     type: actionTypes.LOAD_WORKOUTS_ERROR,
     workoutsError
@@ -18,7 +18,7 @@ export function requestWorkoutsError (workoutsError: string): LoadWorkoutsErrorA
 }
 
 export function requestWorkouts () {
-  return async (dispatch: any) => {
+  return async (dispatch: (arg: LoadWorkoutsAction | LoadWorkoutsErrorAction) => (LoadWorkoutsAction | LoadWorkoutsErrorAction)) => {
     try {
       const workouts = await axios.get(serverWorkoutsUrl);
       dispatch(requestWorkoutsSuccess(workouts.data));
@@ -28,7 +28,7 @@ export function requestWorkouts () {
   };
 }
 
-export function requestWorkoutDetailSuccess (workout: any) {
+export function requestWorkoutDetailSuccess (workout: Workouts[]) {
   return {
     type: actionTypes.LOAD_WORKOUT,
     workout
@@ -42,8 +42,8 @@ export function requestWorkoutDetailError (workoutError: any) {
   };
 }
 
-export function requestWorkoutDetail (_id) {
-  return async (dispatch) => {
+export function requestWorkoutDetail (_id:string) {
+  return async (dispatch: (arg: LoadWorkoutAction | LoadWorkoutErrorAction) => LoadWorkoutAction | LoadWorkoutErrorAction) => {
     try {
       const workout = await axios.get(`${serverWorkoutsUrl}/${_id}`);
       dispatch(requestWorkoutDetailSuccess(workout.data));

@@ -1,10 +1,15 @@
 import React, { useEffect } from 'react';
 import './WorkoutDetail.css';
 import { requestWorkoutDetail } from '../../redux/actions/workout-actions';
-import { connect } from 'tls';
-import PropTypes from 'prop-types';
+import { Workouts } from '../../redux/actions/actionTypes';
+import { connect } from 'react-redux';
+/* import PropTypes from 'prop-types'; */
 
-function WorkoutDetail ({ workout, match, dispatch }) {
+function WorkoutDetail ({ workout, match, dispatch }: {
+  workout: Workouts[];
+  match: any;
+  disptach: Function;
+}) {
   const { workoutId } = match.params;
 
   useEffect(() => {
@@ -44,7 +49,7 @@ function WorkoutDetail ({ workout, match, dispatch }) {
   );
 }
 
-WorkoutDetail.propTypes = {
+/* WorkoutDetail.propTypes = {
   workout: PropTypes.shape({
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
@@ -57,7 +62,7 @@ WorkoutDetail.propTypes = {
     }).isRequired
   }).isRequired,
   dispatch: PropTypes.func.isRequired
-};
+}; */
 
 function mapStateToProps (state) {
   return {
