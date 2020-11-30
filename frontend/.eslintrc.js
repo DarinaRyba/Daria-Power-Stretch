@@ -22,5 +22,6 @@ module.exports = {
   rules: {
     'no-underscore-dangle': 0,
     'no-debugger': 0,
+    'react/prop-types': 0,
   },
 };
