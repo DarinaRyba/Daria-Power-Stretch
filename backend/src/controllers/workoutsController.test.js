@@ -1,3 +1,4 @@
+/* eslint-disable node/no-callback-literal */
 const workoutSchema = require('../models/workoutSchema');
 const workoutsController = require('./workoutsController')(workoutSchema);
 
@@ -5,7 +6,7 @@ describe('workoutSchema', () => {
   describe('getMethod', () => {
     test('should call json', () => {
       const res = {
-        json: jest.fn(),
+        json: jest.fn()
       };
       workoutSchema.find = jest.fn().mockImplementationOnce((query, callback) => {
         callback(false, {});
@@ -19,7 +20,7 @@ describe('workoutSchema', () => {
     test('should call json with error', () => {
       const res = {
         json: jest.fn(),
-        send: jest.fn(),
+        send: jest.fn()
       };
       workoutSchema.find = jest.fn().mockImplementationOnce((query, callback) => {
         callback(true, {});
@@ -34,11 +35,11 @@ describe('workoutSchema', () => {
   describe('postMethod', () => {
     test('should call json', () => {
       const res = {
-        json: jest.fn(),
+        json: jest.fn()
       };
 
       const req = {
-        body: {},
+        body: {}
       };
       workoutSchema.create = jest.fn().mockImplementationOnce((query, callback) => {
         callback(false, {});
@@ -52,11 +53,11 @@ describe('workoutSchema', () => {
     test('should call json with an error', () => {
       const res = {
         json: jest.fn(),
-        send: jest.fn(),
+        send: jest.fn()
       };
 
       const req = {
-        body: {},
+        body: {}
       };
       workoutSchema.create = jest.fn().mockImplementationOnce((query, callback) => {
         callback(true, {});
@@ -71,16 +72,16 @@ describe('workoutSchema', () => {
   describe('patchMethod', () => {
     test('should call json', () => {
       const res = {
-        json: jest.fn(),
+        json: jest.fn()
       };
 
       const req = {
-        body: { _id: '1' },
+        body: { _id: '1' }
       };
       workoutSchema.findByIdAndUpdate = jest.fn().mockImplementationOnce(
         (query, body, callback) => {
           callback(false, {});
-        },
+        }
       );
 
       workoutsController.patchWorkoutMethod(req, res);
@@ -91,16 +92,16 @@ describe('workoutSchema', () => {
     test('should call json with an error', () => {
       const res = {
         json: jest.fn(),
-        send: jest.fn(),
+        send: jest.fn()
       };
 
       const req = {
-        body: { _id: '1' },
+        body: { _id: '1' }
       };
       workoutSchema.findByIdAndUpdate = jest.fn().mockImplementationOnce(
         (query, body, callback) => {
           callback(true, {});
-        },
+        }
       );
 
       workoutsController.patchWorkoutMethod(req, res);
@@ -112,16 +113,16 @@ describe('workoutSchema', () => {
   describe('deleteMethod', () => {
     test('should call json', () => {
       const res = {
-        json: jest.fn(),
+        json: jest.fn()
       };
 
       const req = {
-        body: { _id: '1' },
+        body: { _id: '1' }
       };
       workoutSchema.findByIdAndRemove = jest.fn().mockImplementationOnce(
         (query, body, callback) => {
           callback(false, {});
-        },
+        }
       );
 
       workoutsController.deleteWorkoutMethod(req, res);
@@ -132,16 +133,16 @@ describe('workoutSchema', () => {
     test('should call json with an error', () => {
       const res = {
         json: jest.fn(),
-        send: jest.fn(),
+        send: jest.fn()
       };
 
       const req = {
-        body: { _id: '1' },
+        body: { _id: '1' }
       };
       workoutSchema.findByIdAndRemove = jest.fn().mockImplementationOnce(
         (query, body, callback) => {
           callback(true, {});
-        },
+        }
       );
 
       workoutsController.deleteWorkoutMethod(req, res);

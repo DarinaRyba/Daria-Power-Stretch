@@ -1,5 +1,5 @@
-function workoutsController(workoutSchema) {
-  function getWorkoutMethod(req, res) {
+function workoutsController (workoutSchema) {
+  function getWorkoutMethod (req, res) {
     const query = {};
     workoutSchema.find(query, (workoutsError, workout) => {
       if (workoutsError) {
@@ -9,7 +9,7 @@ function workoutsController(workoutSchema) {
     });
   }
 
-  function postWorkoutMethod(req, res) {
+  function postWorkoutMethod (req, res) {
     const query = req.body;
     workoutSchema.create(query, (workoutsError, workout) => {
       if (workoutsError) {
@@ -19,7 +19,7 @@ function workoutsController(workoutSchema) {
     });
   }
 
-  function patchWorkoutMethod({ body }, res) {
+  function patchWorkoutMethod ({ body }, res) {
     workoutSchema.findByIdAndUpdate(body._id, body, (workoutsError, workout) => {
       if (workoutsError) {
         return res.send(workoutsError);
@@ -28,7 +28,7 @@ function workoutsController(workoutSchema) {
     });
   }
 
-  function deleteWorkoutMethod({ body }, res) {
+  function deleteWorkoutMethod ({ body }, res) {
     workoutSchema.findByIdAndRemove(body._id, body, (workoutsError, workout) => {
       if (workoutsError) {
         return res.send(workoutsError);
@@ -38,7 +38,7 @@ function workoutsController(workoutSchema) {
   }
 
   return {
-    getWorkoutMethod, patchWorkoutMethod, postWorkoutMethod, deleteWorkoutMethod,
+    getWorkoutMethod, patchWorkoutMethod, postWorkoutMethod, deleteWorkoutMethod
   };
 }
 
