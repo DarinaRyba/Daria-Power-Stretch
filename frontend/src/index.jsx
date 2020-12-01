@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import './index.css';
 import Header from './components/Header/Header';
 import WorkoutDetail from './components/WorkoutDetail/WorkoutDetail';
-import configureStore from './redux/configurateStore';
+import configureStore from './redux/configureStore';
 
 const store = configureStore();
 ReactDOM.render(
