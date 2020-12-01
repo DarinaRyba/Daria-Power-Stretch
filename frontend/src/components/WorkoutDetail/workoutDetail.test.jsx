@@ -13,9 +13,6 @@ const buildStore = configureStore([thunk]);
 describe('WourkoutDetail', () => {
   let initialState;
 
-  beforeEach(() => {
-  });
-
   afterEach(() => {
     jest.restoreAllMocks();
   });

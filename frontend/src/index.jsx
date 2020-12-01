@@ -6,6 +6,7 @@ import './index.css';
 import Header from './components/Header/Header';
 import WorkoutDetail from './components/WorkoutDetail/WorkoutDetail';
 import configureStore from './redux/configureStore';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const store = configureStore();
 ReactDOM.render(
