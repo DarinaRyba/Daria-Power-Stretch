@@ -1,4 +1,7 @@
 body {
   margin: 0;
-  background-color: #eceae4;
+}
+
+#root {
+  background-color: #f4f4f4;
 }
