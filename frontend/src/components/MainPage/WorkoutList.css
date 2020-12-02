@@ -1,0 +1,11 @@
+.workout-list {
+    list-style-type: none;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.list {
+    margin: auto;
+}

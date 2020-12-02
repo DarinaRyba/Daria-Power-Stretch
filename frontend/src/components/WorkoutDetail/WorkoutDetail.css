@@ -50,6 +50,31 @@
     font-family: 'Lato', sans-serif;
 }
 
+.detail_card-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    color: #41555a;
+    font-family: 'Lato', sans-serif;
+}
+
+.icon-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.icon-separator {
+    margin-left: 5px;
+}
+
+.detail__card-schedule {
+    justify-content: center;
+    text-align: center;
+    color: #41555a;
+    font-family: 'Lato', sans-serif;
+}
+
 .detail__card-button {
     text-align: center;
 }
@@ -67,7 +92,6 @@
   
 }
 
-
 @media screen and (min-width: 865px) {
     .detail-wrapper {
         flex-direction: row;
@@ -78,6 +102,7 @@
     .detail__image {
         width: 100%;
         margin: 0;
+        min-width: 130%;
     }
     
 	.image{
@@ -86,12 +111,13 @@
     
     .detail__card {
         width: 40%;
-        margin-left: 20px;
+        margin: auto auto auto 20px;
         top: 2%;
         bottom: 2%;   
         left: 0;
         right: 0;
-        background-color: #edebe5c4;            
+        background-color: #edebe5c4;  
+        min-height: 700px;          
     }
 
     .detail__card-name {
@@ -102,6 +128,19 @@
         font-size: 16px;
         width: 70%;
         margin: 30px auto auto auto;
+        
+    }
+    .detail_card-info {
+       margin-top: 30px;
+    }
+
+    .detail__card-schedule {
+        margin-top: 30px;
+        
+    }
+
+    .btn-book {
+        margin-top: 30px;
        
     }
   

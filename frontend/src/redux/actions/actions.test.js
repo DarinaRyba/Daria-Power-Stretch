@@ -23,21 +23,28 @@ describe('workout-actions', () => {
     jest.resetAllMocks();
     store = null;
   });
+  describe('requestWorkouts', () => {
+    test('should dispatch the correct action', async () => {
+      axios.get = jest.fn().mockResolvedValueOnce(fakeData);
+      const workouts = 'workouts';
+      const expectedActions = [
+        { type: actionTypes.LOAD_WORKOUTS, workouts },
+      ];
 
-  test('in requestWorkouts should disptach the correct action: action.type LOAD_WORKOUTS', async () => {
-    axios.get = jest.fn().mockResolvedValueOnce(fakeData);
+      await store.dispatch(workoutActions.requestWorkouts());
 
-    await store.dispatch(workoutActions.requestWorkouts());
+      expect(store.getActions()).toEqual(expectedActions);
+    });
 
-    expect(store.getActions()[0].type).toBe(actionTypes.LOAD_WORKOUTS);
-  });
+    test('should dispatch the correct action', async () => {
+      axios.get = jest.fn().mockRejectedValueOnce(fakeError);
+      const workoutsError = 'error';
+      const expectedAction = { type: actionTypes.LOAD_WORKOUTS_ERROR, workoutsError };
 
-  test('in workoutProjects when an error should disptach the correct action: action.type LOAD_PROJECTS_ERROR ', async () => {
-    axios.get = jest.fn().mockRejectedValueOnce(fakeError);
+      await store.dispatch(workoutActions.requestWorkouts());
 
-    await store.dispatch(workoutActions.requestWorkouts());
-
-    expect(store.getActions()[0].type).toBe(actionTypes.LOAD_WORKOUTS_ERROR);
+      expect(store.getActions()[0]).toEqual(expectedAction);
+    });
   });
 
   test('in requestWorkoutDetail should disptach the correct action: action.type LOAD_WORKOUT', async () => {
