@@ -25,10 +25,9 @@ describe('WourkoutDetail', () => {
       </Provider>
     );
 
-    const { getByText } = render(<WorkoutDetail />, { wrapper: Wrapper });
+    render(<WorkoutDetail />, { wrapper: Wrapper });
 
-    getByText(/a_name/i);
-    getByText(/a_description/i);
+    expect(document.querySelector('h4').textContent).toBe('a_name');
   });
 
   test('should make the request to get the workout detail', () => {

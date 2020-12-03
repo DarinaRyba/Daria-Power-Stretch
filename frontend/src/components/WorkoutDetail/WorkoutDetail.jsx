@@ -9,12 +9,14 @@ import PlaceIcon from '@material-ui/icons/Place';
 import EventIcon from '@material-ui/icons/Event';
 import { requestWorkoutDetail } from '../../redux/actions/workout-actions';
 
-function WorkoutDetail({ workout, dispatch }) {
+function WorkoutDetail({ workout, dispatch, match }) {
+  const { workoutId } = match.params;
+
   useEffect(() => {
-    if (!workout) {
-      dispatch(requestWorkoutDetail(workout));
+    if (!workout || workoutId !== workout._id) {
+      dispatch(requestWorkoutDetail(workoutId));
     }
-  }, [workout]);
+  }, [workout, workoutId]);
 
   return (
 
@@ -22,7 +24,7 @@ function WorkoutDetail({ workout, dispatch }) {
       <div className="detail__image">
         <img
           className="image"
-          src="https://trello-attachments.s3.amazonaws.com/5fc0f7845fca4370bc8c6bca/5fc3bc45c0a989730344a696/1cdf9a4f390c4d42f788c736be0c6246/Stretching-detail.png"
+          src={workout?.image}
           alt=""
         />
       </div>

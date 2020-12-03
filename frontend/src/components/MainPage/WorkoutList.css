@@ -8,4 +8,20 @@
 
 .list {
     margin: auto;
+    outline-style: none !important;
+
+}
+
+.link-detail{
+    text-decoration: none !important;
+}
+
+.card-container{
+    outline-style: none !important;
+    text-decoration: wavy !important;
+}
+
+.card-container:hover {
+    opacity: 0.9;
+
 }

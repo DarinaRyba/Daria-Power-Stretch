@@ -8,7 +8,8 @@ const workoutSchema = new Schema({
   duration: String,
   place: String,
   schedule: String,
-  description2: String
+  description2: String,
+  'image-detail': String
 });
 
 module.exports = model('workout', workoutSchema);

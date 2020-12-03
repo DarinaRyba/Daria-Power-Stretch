@@ -42,10 +42,10 @@ export function requestWorkoutDetailError(workoutError) {
   };
 }
 
-export function requestWorkoutDetail() {
+export function requestWorkoutDetail(_id) {
   return async (dispatch) => {
     try {
-      const workout = await axios.get(`${serverWorkoutsUrl}/${'5fc37472da17ed08fdae08c3'}`);
+      const workout = await axios.get(`${serverWorkoutsUrl}/${_id}`);
       dispatch(requestWorkoutDetailSuccess(workout.data));
     } catch (error) {
       dispatch(requestWorkoutDetailError(error));

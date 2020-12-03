@@ -1,6 +1,7 @@
 import React from 'react';
 import './WorkoutList.css';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -34,44 +35,45 @@ function WorkoutList({ workouts, dispatch }) {
       <ul className="workout-list">
         {workouts && workouts.map((workout) => (
           <li className="list">
-            <Card className={classes.root}>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  alt="Contemplative Reptile"
-                  height="250"
-                  image={workout.image}
-                  title="Contemplative Reptile"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {workout.name}
-                  </Typography>
-                  <Typography variant="body2" component="p">
-                    {workout.description2}
-                  </Typography>
-                  <Typography variant="body2" component="p">
-                    Price:
-                    {' '}
-                    {workout.price}
-                    €
-                  </Typography>
-                  <Typography variant="body2" component="p">
-                    <AccessTimeIcon />
-                    {workout.duration}
-                  </Typography>
-                  <Typography variant="body2" component="p">
-                    <PlaceIcon />
-                    {workout.place}
-                  </Typography>
-                  <Typography variant="body2" component="p">
-                    <EventIcon />
-                    {workout.schedule}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-
+            <Link className="link-detail" to={`/workouts/${workout._id}`}>
+              <Card className={classes.root}>
+                <CardActionArea className="card-container">
+                  <CardMedia
+                    component="img"
+                    alt="Contemplative Reptile"
+                    height="250"
+                    image={workout.image}
+                    title="Contemplative Reptile"
+                  />
+                  <CardContent style={{ fontFamily: 'Poppins' }}>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {workout.name}
+                    </Typography>
+                    <Typography variant="body2" component="p">
+                      {workout.description2}
+                    </Typography>
+                    <Typography variant="body2" style={{ marginTop: '10px' }} component="p">
+                      Price:
+                      {' '}
+                      {workout.price}
+                      €
+                    </Typography>
+                    <Typography variant="body2" component="p">
+                      <AccessTimeIcon />
+                      {workout.duration}
+                    </Typography>
+                    <Typography variant="body2" component="p">
+                      <PlaceIcon />
+                      {workout.place}
+                    </Typography>
+                    <Typography variant="body2" component="p">
+                      <EventIcon />
+                      {workout.schedule}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Link>
           </li>
         ))}
       </ul>
