@@ -25,7 +25,7 @@ describe('WourkoutDetail', () => {
       </Provider>
     );
 
-    render(<WorkoutDetail />, { wrapper: Wrapper });
+    render(<WorkoutDetail match={{ params: {} }} />, { wrapper: Wrapper });
 
     expect(document.querySelector('h4').textContent).toBe('a_name');
   });
@@ -40,7 +40,7 @@ describe('WourkoutDetail', () => {
       </Provider>
     );
 
-    render(<WorkoutDetail />, { wrapper: Wrapper });
+    render(<WorkoutDetail match={{ params: {} }} />, { wrapper: Wrapper });
 
     expect(requestWorkoutDetail).toHaveBeenCalled();
   });

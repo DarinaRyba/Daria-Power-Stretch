@@ -34,7 +34,7 @@ function WorkoutList({ workouts, dispatch }) {
     <main className="workout-list-container">
       <ul className="workout-list">
         {workouts && workouts.map((workout) => (
-          <li className="list">
+          <li key={performance.now() * Math.random()} className="list">
             <Link className="link-detail" to={`/workouts/${workout._id}`}>
               <Card className={classes.root}>
                 <CardActionArea className="card-container">
@@ -46,7 +46,7 @@ function WorkoutList({ workouts, dispatch }) {
                     title="Contemplative Reptile"
                   />
                   <CardContent style={{ fontFamily: 'Poppins' }}>
-                    <Typography gutterBottom variant="h5" component="h2">
+                    <Typography data-testid="workout-name" gutterBottom variant="h5" component="h2">
                       {workout.name}
                     </Typography>
                     <Typography variant="body2" component="p">
