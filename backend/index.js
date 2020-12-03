@@ -14,7 +14,7 @@ const port = process.env.PORT || 2050;
 
 const dbURL = process.env.DBURL || 'mongodb://localhost/workoutdb';
 
-connect(dbURL);
+connect(dbURL, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(morgan('tiny'));
 app.use(cors());
