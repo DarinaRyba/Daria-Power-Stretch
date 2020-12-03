@@ -80,11 +80,20 @@ function WorkoutDetail({ workout, dispatch, match }) {
 
 WorkoutDetail.propTypes = {
   workout: PropTypes.shape({
+    image: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
+    duration: PropTypes.string.isRequired,
+    place: PropTypes.string.isRequired,
+    schedule: PropTypes.string.isRequired,
     _id: PropTypes.string.isRequired,
   }),
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      workoutId: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 
