@@ -3,7 +3,7 @@ import './WorkoutList.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
@@ -24,6 +24,12 @@ const useStyles = makeStyles({
   },
 });
 
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: 'Poppins',
+  },
+});
+
 function WorkoutList({ workouts, dispatch }) {
   const classes = useStyles();
   if (!workouts || !workouts.length) {
@@ -37,7 +43,7 @@ function WorkoutList({ workouts, dispatch }) {
         {workouts && workouts.map((workout) => (
           <li key={performance.now() * Math.random()} className="list">
             <Link className="link-detail" to={`/workouts/${workout._id}`}>
-              <Card className={classes.root}>
+              <Card style={{ marginTop: '15px' }} className={classes.root}>
                 <CardActionArea className="card-container">
                   <CardMedia
                     component="img"
@@ -47,28 +53,31 @@ function WorkoutList({ workouts, dispatch }) {
                     title="Contemplative Reptile"
                   />
                   <CardContent style={{ fontFamily: 'Poppins' }}>
-                    <Typography data-testid="workout-name" gutterBottom variant="h5" component="h2">
+                    <Typography theme={theme} data-testid="workout-name" gutterBottom variant="h5" component="h2">
                       {workout.name}
                     </Typography>
                     <Typography variant="body2" component="p">
                       {workout.description2}
                     </Typography>
-                    <Typography variant="body2" style={{ marginTop: '10px' }} component="p">
+                    <Typography variant="body2" style={{ marginTop: '10px', fontSize: '16px' }} component="p">
                       Price:
                       {' '}
                       {workout.price}
                       €
                     </Typography>
-                    <Typography variant="body2" component="p">
+                    <Typography variant="body2" style={{ marginTop: '10px' }} component="p">
                       <AccessTimeIcon />
+                      {' '}
                       {workout.duration}
                     </Typography>
-                    <Typography variant="body2" component="p">
+                    <Typography variant="body2" style={{ marginTop: '10px' }} component="p">
                       <PlaceIcon />
+                      {' '}
                       {workout.place}
                     </Typography>
-                    <Typography variant="body2" component="p">
+                    <Typography variant="body2" style={{ marginTop: '10px' }} component="p">
                       <EventIcon />
+                      {' '}
                       {workout.schedule}
                     </Typography>
                   </CardContent>
