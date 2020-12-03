@@ -11,17 +11,14 @@ jest.mock('../../redux/actions/workout-actions');
 const buildStore = configureStore([thunk]);
 
 describe('WourkoutDetail', () => {
-  let initialState;
-
   afterEach(() => {
     jest.restoreAllMocks();
   });
 
-  test('should render h3', () => {
-    initialState = { workoutReducer: { workout: { name: 'abc', description: 'abc', price: 1 } } };
+  test('should render workout name and description', () => {
+    const initialState = { workoutReducer: { workout: { name: 'a_name', description: 'a_description', price: 1 } } };
     const store = buildStore(initialState);
     store.dispatch = jest.fn();
-
     const Wrapper = ({ children }) => (
       <Provider store={store}>
         {children}
@@ -29,14 +26,14 @@ describe('WourkoutDetail', () => {
     );
 
     render(<WorkoutDetail />, { wrapper: Wrapper });
-    expect(document.querySelector('h3').textContent).toBe('abc');
+
+    expect(document.querySelector('h4').textContent).toBe('a_name');
   });
 
-  test('should requestWorkoutDetail', () => {
-    initialState = { workoutReducer: {} };
+  test('should make the request to get the workout detail', () => {
+    const initialState = { workoutReducer: {} };
     const store = buildStore(initialState);
     store.dispatch = jest.fn();
-
     const Wrapper = ({ children }) => (
       <Provider store={store}>
         {children}
@@ -44,6 +41,7 @@ describe('WourkoutDetail', () => {
     );
 
     render(<WorkoutDetail />, { wrapper: Wrapper });
+
     expect(requestWorkoutDetail).toHaveBeenCalled();
   });
 });

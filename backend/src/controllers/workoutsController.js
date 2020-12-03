@@ -1,11 +1,11 @@
 function workoutsController (workoutSchema) {
   function getWorkoutMethod (req, res) {
     const query = {};
-    workoutSchema.find(query, (workoutsError, workout) => {
+    workoutSchema.find(query, (workoutsError, workouts) => {
       if (workoutsError) {
         res.send(workoutsError);
       }
-      res.json(workout);
+      res.json(workouts);
     });
   }
 

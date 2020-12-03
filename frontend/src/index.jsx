@@ -1,19 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 import Header from './components/Header/Header';
 import WorkoutDetail from './components/WorkoutDetail/WorkoutDetail';
+import MainPage from './components/MainPage/MainPage';
 import configureStore from './redux/configureStore';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const store = configureStore();
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Header />
-      <WorkoutDetail />
+      <BrowserRouter>
+        <Header />
+        <Switch>
+          <Route path="/" exact component={MainPage} />
+          <Route path="/workouts/:workoutId" exact component={WorkoutDetail} />
+        </Switch>
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'),
