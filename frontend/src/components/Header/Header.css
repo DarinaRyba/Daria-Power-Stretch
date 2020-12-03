@@ -13,3 +13,14 @@
 .header__logo{
     height: 90px;
 }
+
+.link {
+	text-decoration: none;
+	color: #805f4c;
+}
+
+@media screen and (min-width: 600px) {
+	.burger-btn {
+		display: none !important;
+	}
+}
