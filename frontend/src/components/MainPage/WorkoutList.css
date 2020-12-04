@@ -24,6 +24,17 @@
 
 }
 
+.workout-list__title {
+    color: #805f4c;
+	font-family: 'Poppins', sans-serif !important;
+}
+
+.workout-list__text {
+    font-size: 16px !important;
+    font-family: 'Lato', sans-serif !important;
+}
+
+
 @media screen and (max-width: 755px) {
     .makeStyles-root-1{
         max-width: 90vw !important;

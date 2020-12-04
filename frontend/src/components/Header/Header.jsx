@@ -101,7 +101,7 @@ function Header() {
           </Link>
         </div>
 
-        <div className="header__link-btn">
+        <div className="header__link-book">
           <Link
             className="link"
             to="/book"

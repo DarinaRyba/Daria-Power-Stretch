@@ -53,10 +53,10 @@ function WorkoutList({ workouts, dispatch }) {
                     title="Contemplative Reptile"
                   />
                   <CardContent style={{ fontFamily: 'Poppins' }}>
-                    <Typography theme={theme} data-testid="workout-name" gutterBottom variant="h5" component="h2">
+                    <Typography className="workout-list__title" theme={theme} data-testid="workout-name" gutterBottom variant="h5" component="h2">
                       {workout.name}
                     </Typography>
-                    <Typography variant="body2" component="p">
+                    <Typography className="workout-list__text" variant="body2" component="p">
                       {workout.description2}
                     </Typography>
                     <Typography variant="body2" style={{ marginTop: '10px', fontSize: '16px' }} component="p">

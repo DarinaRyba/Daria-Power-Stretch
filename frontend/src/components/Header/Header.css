@@ -40,6 +40,9 @@
 	font-size: 14px !important;
     border-color: transparent !important;
 }
+.header__link-book {
+	display: flex;
+}
 
 @media screen and (min-width: 800px) {
 	.burger-btn {
