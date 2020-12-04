@@ -14,18 +14,26 @@
 }
 
 .link {
-	text-decoration: none;
 	color: #805f4c;
+	text-decoration: none;
+	outline-style: none;
+	outline: none;
+}
+.link:hover {
+	color: #9c806f;
+	text-decoration: none;
+	outline-style: none;
+	outline: none;
 }
 
-.links-wrapper{
+.link-wrapper{
 	display: none;
 }
 .flex-spacer {
 	flex: 1;
 }
 
-.header__btn-book {
+.header__btn-login {
     color: #82614e !important;
 	font-family: 'Lato', sans-serif !important;
 	outline-style: none !important;
@@ -47,18 +55,7 @@
 		font-family: 'Lato', sans-serif;
 		outline-style: none;
 	}
-	.link {
-		color: #805f4c;
-		text-decoration: none;
-		outline-style: none;
-		outline: none;
-	}
-	.link:hover {
-		color: #9c806f;
-		text-decoration: none;
-		outline-style: none;
-		outline: none;
-	}
+	
 	.link__text {
 		padding: 6px 8px 6px 8px;
 	}

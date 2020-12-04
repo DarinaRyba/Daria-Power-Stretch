@@ -48,7 +48,6 @@ function Header() {
       </Link>
 
       <div className="link-wrapper">
-
         <div>
           <Link
             className="link"
@@ -91,25 +90,39 @@ function Header() {
               <MenuItem onClick={handleClose}>Yoga</MenuItem>
             </Link>
           </Menu>
-
         </div>
 
         <div>
-          <p className="link__text">SCHEDULE/PRICES</p>
+          <Link
+            className="link"
+            to="/schedule"
+          >
+            <p className="link__text">SCHEDULE/PRICES</p>
+          </Link>
+        </div>
+
+        <div className="header__link-btn">
+          <Link
+            className="link"
+            to="/book"
+          >
+            <p className="link__text">BOOK</p>
+          </Link>
         </div>
 
         <div>
-          <p className="link__text">BOOK</p>
-        </div>
-
-        <div>
-          <p className="link__text">ABOUT ME</p>
+          <Link
+            className="link"
+            to="/aboutMe"
+          >
+            <p className="link__text">ABOUT ME</p>
+          </Link>
         </div>
 
       </div>
       <div className="flex-spacer" />
       <div className={classes.root}>
-        <Button className="header__btn-book" variant="contained">Login</Button>
+        <Button className="header__btn-login" variant="contained">Login</Button>
       </div>
     </header>
 

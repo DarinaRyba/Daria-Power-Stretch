@@ -59,8 +59,20 @@ function BurgerButton() {
           {' '}
           <MenuItem onClick={handleClose}>Yoga</MenuItem>
         </Link>
-        <MenuItem onClick={handleClose}>Schedule/prices</MenuItem>
-        <MenuItem onClick={handleClose}>About me</MenuItem>
+        <Link
+          className="link"
+          to="/schedule"
+        >
+          {' '}
+          <MenuItem onClick={handleClose}>Schedule/prices</MenuItem>
+        </Link>
+        <Link
+          className="link"
+          to="/aboutMe"
+        >
+          {' '}
+          <MenuItem onClick={handleClose}>About me</MenuItem>
+        </Link>
       </Menu>
 
     </div>
