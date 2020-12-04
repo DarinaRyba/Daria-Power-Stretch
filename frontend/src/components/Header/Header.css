@@ -6,7 +6,6 @@
 	align-items: center;
 	height: 95px;
 	background-color: #edebe5;
-	top: 0;
 	box-shadow: 0px 2px 3px 1px #cfcdc6;
 }
 
@@ -19,8 +18,58 @@
 	color: #805f4c;
 }
 
-@media screen and (min-width: 600px) {
+.links-wrapper{
+	display: none;
+}
+.flex-spacer {
+	flex: 1;
+}
+
+.header__btn-book {
+    color: #82614e !important;
+	font-family: 'Lato', sans-serif !important;
+	outline-style: none !important;
+	font-size: 14px !important;
+    border-color: transparent !important;
+}
+
+@media screen and (min-width: 800px) {
 	.burger-btn {
 		display: none !important;
+	}
+	.link-wrapper{
+		display: flex;
+		width: 100%;
+		margin-top: 10px;
+		font-size: 14px;
+		justify-content: space-evenly;
+		color: #805f4c;
+		font-family: 'Lato', sans-serif;
+		outline-style: none;
+	}
+	.link {
+		color: #805f4c;
+		text-decoration: none;
+		outline-style: none;
+		outline: none;
+	}
+	.link:hover {
+		color: #9c806f;
+		text-decoration: none;
+		outline-style: none;
+		outline: none;
+	}
+	.link__text {
+		padding: 6px 8px 6px 8px;
+	}
+
+	.link__classes {
+		color: #805f4c !important;
+		font-family: 'Lato', sans-serif !important;
+		outline-style: none !important;
+	}
+	.link__classes:hover {
+		color: #9c806f !important;
+		background-color: #edebe5 !important;
 	}
 }

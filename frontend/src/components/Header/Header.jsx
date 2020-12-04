@@ -1,13 +1,23 @@
 import React from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
-import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { makeStyles } from '@material-ui/core/styles';
+import BurgerButton from './BurgerButton';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+}));
 
 function Header() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const classes = useStyles();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -26,43 +36,7 @@ function Header() {
   return (
 
     <header className="header">
-      <Button className="burger-btn" style={{ outlineStyle: 'none' }} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-        <MenuIcon style={{ width: '100px', height: '50px', color: '#41555a87' }} />
-      </Button>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-        textDecoration="none"
-        color="#805f4c"
-      >
-        <Link
-          className="link"
-          to={`/workouts/${path.stretching}`}
-        >
-          {' '}
-          <MenuItem onClick={handleClose}>Stretching</MenuItem>
-        </Link>
-        <Link
-          className="link"
-          to={`/workouts/${path.pilates}`}
-        >
-          {' '}
-          <MenuItem onClick={handleClose}>Pilates</MenuItem>
-        </Link>
-        <Link
-          className="link"
-          to={`/workouts/${path.yoga}`}
-        >
-          {' '}
-          <MenuItem onClick={handleClose}>Yoga</MenuItem>
-        </Link>
-        <MenuItem onClick={handleClose}>Schedule/prices</MenuItem>
-        <MenuItem onClick={handleClose}>About me</MenuItem>
-      </Menu>
-
+      <BurgerButton />
       <Link to="/" style={{ textDecoration: 'none' }}>
         <div>
           <img
@@ -72,6 +46,71 @@ function Header() {
           />
         </div>
       </Link>
+
+      <div className="link-wrapper">
+
+        <div>
+          <Link
+            className="link"
+            to="/"
+          >
+            <p className="link__text">HOME</p>
+          </Link>
+        </div>
+
+        <div>
+          <Button className="link__classes" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+            Classes
+          </Button>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <Link
+              className="link"
+              to={`/workouts/${path.stretching}`}
+            >
+              {' '}
+              <MenuItem onClick={handleClose}>Stretching</MenuItem>
+            </Link>
+            <Link
+              className="link"
+              to={`/workouts/${path.pilates}`}
+            >
+              {' '}
+              <MenuItem onClick={handleClose}>Pilates</MenuItem>
+            </Link>
+            <Link
+              className="link"
+              to={`/workouts/${path.yoga}`}
+            >
+              {' '}
+              <MenuItem onClick={handleClose}>Yoga</MenuItem>
+            </Link>
+          </Menu>
+
+        </div>
+
+        <div>
+          <p className="link__text">SCHEDULE/PRICES</p>
+        </div>
+
+        <div>
+          <p className="link__text">BOOK</p>
+        </div>
+
+        <div>
+          <p className="link__text">ABOUT ME</p>
+        </div>
+
+      </div>
+      <div className="flex-spacer" />
+      <div className={classes.root}>
+        <Button className="header__btn-book" variant="contained">Login</Button>
+      </div>
     </header>
 
   );
