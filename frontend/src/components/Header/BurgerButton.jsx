@@ -26,7 +26,7 @@ function BurgerButton() {
   return (
 
     <div>
-      <Button className="burger-btn" style={{ outlineStyle: 'none' }} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+      <Button id="btn-test" className="burger-btn" style={{ outlineStyle: 'none' }} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
         <MenuIcon style={{ width: '100px', height: '50px', color: '#41555a87' }} />
       </Button>
       <Menu
