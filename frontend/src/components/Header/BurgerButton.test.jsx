@@ -4,18 +4,18 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import Header from './Header';
+import BurgerButton from './BurgerButton';
 
 jest.mock('../../redux/actions/workout-actions');
 
 const buildStore = configureStore([thunk]);
 
-describe('Header', () => {
+describe('BurgerButton', () => {
   afterEach(() => {
     jest.restoreAllMocks();
   });
 
-  test('should render logo', () => {
+  test('should open menu', () => {
     const initialState = {};
     const store = buildStore(initialState);
     store.dispatch = jest.fn();
@@ -28,27 +28,8 @@ describe('Header', () => {
       </Provider>
     );
 
-    render(<Header />, { wrapper: Wrapper });
-    const expectedElement = document.querySelector('img');
-
-    expect(expectedElement).toBeInTheDocument();
-  });
-
-  test('should show classes when clicked', () => {
-    const initialState = {};
-    const store = buildStore(initialState);
-    store.dispatch = jest.fn();
-
-    const Wrapper = ({ children }) => (
-      <Provider store={store}>
-        <BrowserRouter>
-          {children}
-        </BrowserRouter>
-      </Provider>
-    );
-
-    render(<Header />, { wrapper: Wrapper });
-    const buttonElement = document.querySelector('.link__classes');
+    render(<BurgerButton />, { wrapper: Wrapper });
+    const buttonElement = document.querySelector('.burger-btn');
     const event = { currentTarget: buttonElement };
     fireEvent.click(buttonElement, event);
 
