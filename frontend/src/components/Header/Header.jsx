@@ -5,7 +5,10 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 import BurgerButton from './BurgerButton';
+
+import { signInWithGoogle, signOut } from '../../redux/actions/auth-actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Header() {
+function Header({ dispatch, user }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const classes = useStyles();
 
@@ -121,12 +124,20 @@ function Header() {
 
       </div>
       <div className="flex-spacer" />
+
       <div className={classes.root}>
-        <Button className="header__btn-login" variant="contained">Login</Button>
+        {!user && <Button onClick={() => { dispatch(signInWithGoogle()); }} className="header__btn-login" variant="contained">Login</Button>}
+        {user && <Button onClick={() => { dispatch(signOut()); }} className="header__btn-login" variant="contained">Logout</Button>}
       </div>
     </header>
 
   );
 }
+function mapStateToProps(state) {
+  return {
+    user: state.usersReducer.user,
+    isLogged: state.usersReducer.isLogged,
+  };
+}
 
-export default Header;
+export default connect(mapStateToProps)(Header);
