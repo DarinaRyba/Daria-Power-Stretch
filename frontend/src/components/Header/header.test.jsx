@@ -5,8 +5,10 @@ import { BrowserRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Header from './Header';
+import { signInWithGoogle, signOut } from '../../redux/actions/auth-actions';
 
 jest.mock('../../redux/actions/workout-actions');
+jest.mock('../../redux/actions/auth-actions');
 
 const buildStore = configureStore([thunk]);
 
@@ -16,7 +18,7 @@ describe('Header', () => {
   });
 
   test('should render logo', () => {
-    const initialState = {};
+    const initialState = { usersReducer: { user: { name: 'a_name' } } };
     const store = buildStore(initialState);
     store.dispatch = jest.fn();
 
@@ -35,7 +37,7 @@ describe('Header', () => {
   });
 
   test('should show classes when clicked', () => {
-    const initialState = {};
+    const initialState = { usersReducer: { user: { name: 'a_name' } } };
     const store = buildStore(initialState);
     store.dispatch = jest.fn();
 
@@ -53,5 +55,41 @@ describe('Header', () => {
     fireEvent.click(buttonElement, event);
 
     expect(buttonElement).toBeInTheDocument();
+  });
+
+  test('shoulld signIn with Google', () => {
+    const initialState = { usersReducer: { user: null }, isLogged: false };
+    const store = buildStore(initialState);
+    store.dispatch = jest.fn();
+
+    const Wrapper = ({ children }) => (
+      <Provider store={store}>
+        <BrowserRouter>
+          {children}
+        </BrowserRouter>
+      </Provider>
+    );
+
+    render(<Header />, { wrapper: Wrapper });
+    document.querySelector('#btn-login').click();
+    expect(signInWithGoogle).toHaveBeenCalled();
+  });
+
+  test('shoulld signOut', () => {
+    const initialState = { usersReducer: { user: { name: 'a_name' } }, isLogged: true };
+    const store = buildStore(initialState);
+    store.dispatch = jest.fn();
+
+    const Wrapper = ({ children }) => (
+      <Provider store={store}>
+        <BrowserRouter>
+          {children}
+        </BrowserRouter>
+      </Provider>
+    );
+
+    render(<Header />, { wrapper: Wrapper });
+    document.querySelector('#btn-logout').click();
+    expect(signOut).toHaveBeenCalled();
   });
 });
