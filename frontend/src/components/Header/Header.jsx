@@ -6,8 +6,8 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import BurgerButton from './BurgerButton';
-
 import { signInWithGoogle, signOut } from '../../redux/actions/auth-actions';
 
 const useStyles = makeStyles((theme) => ({
@@ -126,13 +126,23 @@ function Header({ dispatch, user }) {
       <div className="flex-spacer" />
 
       <div className={classes.root}>
-        {!user && <Button onClick={() => { dispatch(signInWithGoogle()); }} className="header__btn-login" variant="contained">Login</Button>}
-        {user && <Button onClick={() => { dispatch(signOut()); }} className="header__btn-login" variant="contained">Logout</Button>}
+        {!user && <Button onClick={() => { dispatch(signInWithGoogle()); }} id="btn-login" className="header__btn-login" variant="contained">Login</Button>}
+        {user && <Button onClick={() => { dispatch(signOut()); }} id="btn-logout" className="header__btn-login" variant="contained">Logout</Button>}
       </div>
     </header>
 
   );
 }
+
+Header.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  user: PropTypes.shape({}),
+};
+
+Header.defaultProps = {
+  user: null,
+};
+
 function mapStateToProps(state) {
   return {
     user: state.usersReducer.user,
