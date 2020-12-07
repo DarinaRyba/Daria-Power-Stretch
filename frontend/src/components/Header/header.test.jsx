@@ -57,7 +57,7 @@ describe('Header', () => {
     expect(buttonElement).toBeInTheDocument();
   });
 
-  test('shoulld signIn with Google', () => {
+  test('should signIn with Google', () => {
     const initialState = { usersReducer: { user: null }, isLogged: false };
     const store = buildStore(initialState);
     store.dispatch = jest.fn();
@@ -75,7 +75,7 @@ describe('Header', () => {
     expect(signInWithGoogle).toHaveBeenCalled();
   });
 
-  test('shoulld signOut', () => {
+  test('should signOut', () => {
     const initialState = { usersReducer: { user: { name: 'a_name' } }, isLogged: true };
     const store = buildStore(initialState);
     store.dispatch = jest.fn();
@@ -91,5 +91,25 @@ describe('Header', () => {
     render(<Header />, { wrapper: Wrapper });
     document.querySelector('#btn-logout').click();
     expect(signOut).toHaveBeenCalled();
+  });
+
+  describe('when user is already logged', () => {
+    test('should not call signIn', () => {
+      const initialState = { usersReducer: { user: null }, isLogged: false };
+      const store = buildStore(initialState);
+      store.dispatch = jest.fn();
+      window.localStorage.setItem('user', 'paquito');
+      const Wrapper = ({ children }) => (
+        <Provider store={store}>
+          <BrowserRouter>
+            {children}
+          </BrowserRouter>
+        </Provider>
+      );
+
+      const { getByText } = render(<Header />, { wrapper: Wrapper });
+
+      expect(getByText(/login/i)).toBeInTheDocument();
+    });
   });
 });

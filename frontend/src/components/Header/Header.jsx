@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Header({ dispatch, user }) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+
   const classes = useStyles();
 
   const handleClick = (event) => {
@@ -28,6 +29,14 @@ function Header({ dispatch, user }) {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogin = () => {
+    dispatch(signInWithGoogle());
+  };
+
+  const handleLogout = () => {
+    dispatch(signOut());
   };
 
   const path = {
@@ -126,8 +135,9 @@ function Header({ dispatch, user }) {
       <div className="flex-spacer" />
 
       <div className={classes.root}>
-        {!user && <Button onClick={() => { dispatch(signInWithGoogle()); }} id="btn-login" className="header__btn-login" variant="contained">Login</Button>}
-        {user && <Button onClick={() => { dispatch(signOut()); }} id="btn-logout" className="header__btn-login" variant="contained">Logout</Button>}
+        {!user
+          ? <Button onClick={() => handleLogin()} id="btn-login" className="header__btn-login" variant="contained">Login</Button>
+          : <Button onClick={() => handleLogout()} id="btn-logout" className="header__btn-login" variant="contained">Logout</Button>}
       </div>
     </header>
 
@@ -140,7 +150,7 @@ Header.propTypes = {
 };
 
 Header.defaultProps = {
-  user: null,
+  user: { displayName: null },
 };
 
 function mapStateToProps(state) {
