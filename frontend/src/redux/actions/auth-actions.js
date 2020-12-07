@@ -1,6 +1,9 @@
 import './firebase/firebaseIndex';
+import axios from 'axios';
 import firebase from 'firebase';
 import actionTypes from './actionTypes';
+
+const serverUsersUrl = 'http://localhost:2050/users';
 
 export function handleSignInSuccess(user) {
   return {
@@ -49,6 +52,31 @@ export function signOut() {
       dispatch(handleSignOutSuccess());
     } catch (error) {
       dispatch(handleSignOutError(error));
+    }
+  };
+}
+
+export function addUserSuccess(user) {
+  return {
+    type: actionTypes.LOAD_USER,
+    user,
+  };
+}
+
+export function addUserError(userError) {
+  return {
+    type: actionTypes.LOAD_USER_ERROR,
+    userError,
+  };
+}
+
+export function addUser(userData) {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.patch(serverUsersUrl, userData);
+      dispatch(addUserSuccess(data));
+    } catch (error) {
+      dispatch(addUserError(error));
     }
   };
 }

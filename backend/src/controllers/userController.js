@@ -20,7 +20,7 @@ function usersController (userSchema) {
   }
 
   function patchUserMethod ({ body }, res) {
-    userSchema.findOneAndUpdate(body._id, body, (usersError, user) => {
+    userSchema.findOneAndUpdate(body.displayName, body, (usersError, user) => {
       if (usersError) {
         return res.send(usersError);
       }

@@ -139,6 +139,7 @@ function Header({ dispatch, user }) {
           ? <Button onClick={() => handleLogin()} id="btn-login" className="header__btn-login" variant="contained">Login</Button>
           : <Button onClick={() => handleLogout()} id="btn-logout" className="header__btn-login" variant="contained">Logout</Button>}
       </div>
+
     </header>
 
   );
