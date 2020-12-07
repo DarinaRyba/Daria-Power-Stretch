@@ -42,26 +42,13 @@ export function signInWithGoogle() {
   };
 }
 
-export function signInWithEmail(email, password) {
-  return async (dispatch) => {
-    try {
-      const { user } = await firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password);
-      dispatch(handleSignInSuccess(user));
-    } catch (error) {
-      handleSignInError(error);
-    }
-  };
-}
-
 export function signOut() {
   return async (dispatch) => {
     try {
       await firebase.auth().signOut();
       dispatch(handleSignOutSuccess());
     } catch (error) {
-      handleSignOutError(error);
+      dispatch(handleSignOutError(error));
     }
   };
 }

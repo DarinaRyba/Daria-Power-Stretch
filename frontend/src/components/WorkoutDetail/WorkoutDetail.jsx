@@ -1,5 +1,5 @@
-/* eslint-disable react/require-default-props */
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './WorkoutDetail.css';
@@ -70,7 +70,12 @@ function WorkoutDetail({ workout, dispatch, match }) {
         </div>
 
         <div className="detail__card-button">
-          <Button className="btn-book" variant="light">Book</Button>
+          <Link
+            className="link"
+            to="/book"
+          >
+            <Button className="btn-book" variant="light">Book</Button>
+          </Link>
         </div>
       </div>
 
@@ -95,6 +100,10 @@ WorkoutDetail.propTypes = {
     }).isRequired,
   }).isRequired,
   dispatch: PropTypes.func.isRequired,
+};
+
+WorkoutDetail.defaultProps = {
+  workout: null,
 };
 
 function mapStateToProps(state) {
