@@ -20,7 +20,8 @@ function usersController (userSchema) {
   }
 
   function patchUserMethod ({ body }, res) {
-    userSchema.findOneAndUpdate(body.displayName, body, (usersError, user) => {
+    const query = { uid: body.uid };
+    userSchema.findOneAndUpdate(query, body, { upsert: true, useFindAndModify: false }, (usersError, user) => {
       if (usersError) {
         return res.send(usersError);
       }
