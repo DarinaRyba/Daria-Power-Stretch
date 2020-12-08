@@ -4,7 +4,8 @@ const scheduleSchema = new Schema({
   day: String,
   time: String,
   workout: String,
-  participants: [{ type: Schema.Types.ObjectId, ref: 'users' }]
+  workouts: [{ type: Schema.Types.ObjectId, ref: 'Workout' }],
+  participants: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 });
 
-module.exports = model('schedules', scheduleSchema);
+module.exports = model('Schedule', scheduleSchema);

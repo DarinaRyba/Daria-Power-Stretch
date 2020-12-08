@@ -5,9 +5,10 @@ function workoutController (workoutSchema) {
     const getCallback = (workoutsError, workout) => (
       workoutsError ? res.send(workoutsError) : res.json(workout)
     );
-    workoutSchema.findOne(query)
+    const patata = workoutSchema.findOne(query)
       .populate('days')
       .exec(getCallback);
+    console.log(patata);
   }
   return { getWorkoutMethod };
 }

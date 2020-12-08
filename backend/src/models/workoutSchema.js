@@ -9,7 +9,7 @@ const workoutSchema = new Schema({
   place: String,
   scheduleInfo: String,
   description2: String,
-  days: { type: Schema.Types.ObjectId, ref: 'schedules' }
+  days: [{ type: Schema.Types.ObjectId, ref: 'Schedule' }]
 });
 
-module.exports = model('workouts', workoutSchema);
+module.exports = model('Workout', workoutSchema);
