@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
@@ -19,10 +19,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Header({ dispatch, user }) {
+function Header({ dispatch }) {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [user, setUser] = useState(null);
 
   const classes = useStyles();
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem('user')));
+  }, []);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);

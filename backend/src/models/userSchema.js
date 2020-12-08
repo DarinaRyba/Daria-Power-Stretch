@@ -7,7 +7,7 @@ const userSchema = new Schema({
   photo: String,
   phoneNumber: Number,
   age: Number,
-  workouts: { type: Schema.Types.ObjectId, ref: 'workout' }
+  days: [{ type: Schema.Types.ObjectId, ref: 'Schedule' }]
 });
 
-module.exports = model('user', userSchema);
+module.exports = model('User', userSchema);

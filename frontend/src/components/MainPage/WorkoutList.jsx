@@ -78,7 +78,7 @@ function WorkoutList({ workouts, dispatch }) {
                     <Typography variant="body2" style={{ marginTop: '10px' }} component="p">
                       <EventIcon />
                       {' '}
-                      {workout.schedule}
+                      {workout.scheduleInfo}
                     </Typography>
                   </CardContent>
                 </CardActionArea>
