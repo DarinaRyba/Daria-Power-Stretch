@@ -1,4 +1,5 @@
 /* eslint-disable prefer-promise-reject-errors */
+import axios from 'axios';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import * as firebase from 'firebase';
@@ -110,6 +111,44 @@ describe('auth-actions', () => {
       const expectedActions = [{ type: actionTypes.AUTH_SIGNOUT_ERROR, errorUser }];
 
       await store.dispatch(authActions.signOut());
+
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  describe('addUser', () => {
+    let fakeUser;
+    let fakeError;
+
+    beforeEach(() => {
+      store = mockStore();
+      fakeUser = { data: {} };
+      fakeError = 'error';
+    });
+
+    afterEach(() => {
+      jest.resetAllMocks();
+      store = null;
+    });
+
+    test('should dispatch the correct action', async () => {
+      axios.patch = jest.fn().mockResolvedValueOnce(fakeUser);
+      const expectedActions = [
+        { type: actionTypes.LOAD_USER, user: fakeUser.data },
+      ];
+
+      await store.dispatch(authActions.addUser({}));
+
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    test('should dispatch the correct action', async () => {
+      axios.patch = jest.fn().mockRejectedValueOnce(fakeError);
+      const expectedActions = [
+        { type: actionTypes.LOAD_USER_ERROR, userError: fakeError },
+      ];
+
+      await store.dispatch(authActions.addUser({}));
 
       expect(store.getActions()).toEqual(expectedActions);
     });

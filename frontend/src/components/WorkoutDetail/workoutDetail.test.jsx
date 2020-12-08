@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
+import { BrowserRouter } from 'react-router-dom';
 import thunk from 'redux-thunk';
 import WorkoutDetail from './WorkoutDetail';
 import { requestWorkoutDetail } from '../../redux/actions/workout-actions';
@@ -21,7 +22,9 @@ describe('WourkoutDetail', () => {
     store.dispatch = jest.fn();
     const Wrapper = ({ children }) => (
       <Provider store={store}>
-        {children}
+        <BrowserRouter>
+          {children}
+        </BrowserRouter>
       </Provider>
     );
 
@@ -36,7 +39,9 @@ describe('WourkoutDetail', () => {
     store.dispatch = jest.fn();
     const Wrapper = ({ children }) => (
       <Provider store={store}>
-        {children}
+        <BrowserRouter>
+          {children}
+        </BrowserRouter>
       </Provider>
     );
 
