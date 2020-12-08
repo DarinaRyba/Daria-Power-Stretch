@@ -12,6 +12,8 @@ module.exports = {
     ecmaVersion: 12
   },
   rules: {
+    'node/no-callback-literal': 'error',
     semi: [2, 'always']
+
   }
 };

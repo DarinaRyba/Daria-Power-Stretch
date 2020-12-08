@@ -7,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Avatar from '@material-ui/core/Avatar';
 import BurgerButton from './BurgerButton';
 import { signInWithGoogle, signOut } from '../../redux/actions/auth-actions';
 
@@ -40,8 +41,8 @@ function Header({ dispatch, user }) {
   };
 
   const path = {
-    stretching: '5fc37472da17ed08fdae08c3',
     pilates: '5fc375634cd4ba142ae806ec',
+    stretching: '5fc37472da17ed08fdae08c3',
     yoga: '5fc3ea0d7096975798ab13b9',
   };
 
@@ -139,6 +140,10 @@ function Header({ dispatch, user }) {
           ? <Button onClick={() => handleLogin()} id="btn-login" className="header__btn-login" variant="contained">Login</Button>
           : <Button onClick={() => handleLogout()} id="btn-logout" className="header__btn-login" variant="contained">Logout</Button>}
       </div>
+      <div className={classes.root}>
+        <Avatar alt="" src={user?.photoURL} />
+      </div>
+
     </header>
 
   );

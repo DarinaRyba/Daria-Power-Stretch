@@ -1,3 +1,4 @@
+/* eslint-disable prefer-promise-reject-errors */
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import * as firebase from 'firebase';

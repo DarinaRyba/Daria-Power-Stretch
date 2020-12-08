@@ -7,6 +7,8 @@ const morgan = require('morgan');
 const { connect } = require('mongoose');
 const workoutSchema = require('./src/models/workoutSchema');
 const workoutRouter = require('./src/routes/workoutRouter')(workoutSchema);
+const userSchema = require('./src/models/userSchema');
+const userRouter = require('./src/routes/userRouter')(userSchema);
 
 const app = express();
 
@@ -22,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/workouts', workoutRouter);
+app.use('/users', userRouter);
 
 app.listen(port, () => {
   debug(`Server is running on port ${chalk.blue(port)}`);
