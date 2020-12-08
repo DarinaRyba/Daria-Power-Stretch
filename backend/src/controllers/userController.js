@@ -9,16 +9,6 @@ function usersController (userSchema) {
     });
   }
 
-  function postUserMethod (req, res) {
-    const query = req.body;
-    userSchema.create(query, (usersError, user) => {
-      if (usersError) {
-        return res.send(usersError);
-      }
-      return res.json(user);
-    });
-  }
-
   function patchUserMethod ({ body }, res) {
     const query = { uid: body.uid };
     userSchema.findOneAndUpdate(query, body, { upsert: true, useFindAndModify: false }, (usersError, user) => {
@@ -30,7 +20,7 @@ function usersController (userSchema) {
   }
 
   return {
-    getUserMethod, patchUserMethod, postUserMethod
+    getUserMethod, patchUserMethod
   };
 }
 

@@ -7,7 +7,6 @@ function workoutRouter (userSchema) {
 
   router.route('/')
     .get(users.getUserMethod)
-    .post(users.postUserMethod)
     .patch(users.patchUserMethod);
 
   return router;
