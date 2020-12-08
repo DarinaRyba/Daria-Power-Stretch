@@ -64,7 +64,7 @@ function WorkoutDetail({ workout, dispatch, match }) {
             <EventIcon />
             <p className="icon-separator">
               {' '}
-              {workout?.scheduleInfo}
+              {workout?.schedule}
             </p>
           </div>
         </div>

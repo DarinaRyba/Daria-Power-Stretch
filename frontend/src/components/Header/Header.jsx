@@ -1,33 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { makeStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import Avatar from '@material-ui/core/Avatar';
 import BurgerButton from './BurgerButton';
-import { signInWithGoogle, signOut } from '../../redux/actions/auth-actions';
+import Login from './Login';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
-}));
-
-function Header({ dispatch }) {
+function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [user, setUser] = useState(null);
-
-  const classes = useStyles();
-
-  useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem('user')));
-  }, []);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -35,14 +16,6 @@ function Header({ dispatch }) {
 
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const handleLogin = () => {
-    dispatch(signInWithGoogle());
-  };
-
-  const handleLogout = () => {
-    dispatch(signOut());
   };
 
   const path = {
@@ -140,34 +113,10 @@ function Header({ dispatch }) {
       </div>
       <div className="flex-spacer" />
 
-      <div className={classes.root}>
-        {!user?.uid
-          ? <Button onClick={() => handleLogin()} id="btn-login" className="header__btn-login" variant="contained">Login</Button>
-          : <Button onClick={() => handleLogout()} id="btn-logout" className="header__btn-login" variant="contained">Logout</Button>}
-      </div>
-      <div className={classes.root}>
-        <Avatar alt="" src={user?.photoURL} />
-      </div>
-
+      <Login />
     </header>
 
   );
 }
 
-Header.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  user: PropTypes.shape({}),
-};
-
-Header.defaultProps = {
-  user: { displayName: null },
-};
-
-function mapStateToProps(state) {
-  return {
-    user: state.usersReducer.user,
-    isLogged: state.usersReducer.isLogged,
-  };
-}
-
-export default connect(mapStateToProps)(Header);
+export default Header;
