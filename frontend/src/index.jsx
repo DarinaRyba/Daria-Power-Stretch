@@ -20,6 +20,7 @@ ReactDOM.render(
         <Switch>
           <Route path="/" exact component={MainPage} />
           <Route path="/workouts/:workoutId" exact component={WorkoutDetail} />
+
         </Switch>
       </BrowserRouter>
     </Provider>
