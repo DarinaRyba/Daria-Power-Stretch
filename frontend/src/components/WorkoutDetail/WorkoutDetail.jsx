@@ -83,10 +83,20 @@ function WorkoutDetail({ workout, dispatch, match }) {
             <Modal.Header closeButton>
               <Modal.Title>Choose your day</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Monday 22/12/2020 at 11:30-12:45</Modal.Body>
-            <Modal.Body>Wednesday 24/12/2020 at 11:30-12:45</Modal.Body>
-            <Modal.Body>Monday 29/12/2020 at 11:30-12:45</Modal.Body>
-            <Modal.Body>Wednesday 31/12/2020 at 11:30-12:45</Modal.Body>
+            <ul className="modal-card-list">
+              {workout?.days && workout?.days.map((workoutItem) => (
+                <li key={performance.now() * Math.random()} className="modal-list">
+                  <Modal.Body>
+                    {workoutItem.date}
+                    ;
+                    {' '}
+                    {workoutItem.time}
+                  </Modal.Body>
+                </li>
+
+              ))}
+
+            </ul>
             <Modal.Footer>
               <Button className="btn-book" variant="secondary" onClick={handleClose}>
                 Close

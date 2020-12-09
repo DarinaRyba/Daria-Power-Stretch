@@ -10,7 +10,7 @@ const workoutSchema = new Schema({
   place: { type: String },
   scheduleInfo: { type: String },
   description2: { type: String },
-  days: { type: Schema.Types.ObjectId, ref: 'Schedule' }
+  days: [{ type: Schema.Types.ObjectId, ref: 'Schedule' }]
 });
 
 module.exports = mongoose.model('Workout', workoutSchema);
