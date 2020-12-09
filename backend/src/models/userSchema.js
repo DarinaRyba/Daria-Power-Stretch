@@ -4,10 +4,10 @@ const userSchema = new Schema({
   displayName: String,
   uid: String,
   email: String,
-  photo: String,
+  photoURL: String,
   phoneNumber: Number,
   age: Number,
-  days: [{ type: Schema.Types.ObjectId, ref: 'Schedule' }]
+  days: { type: Schema.Types.ObjectId, ref: 'Schedule' }
 });
 
 module.exports = model('User', userSchema);

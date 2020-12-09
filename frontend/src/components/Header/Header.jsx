@@ -83,15 +83,6 @@ function Header() {
           </Menu>
         </div>
 
-        <div>
-          <Link
-            className="link"
-            to="/schedule"
-          >
-            <p className="link__text">SCHEDULE/PRICES</p>
-          </Link>
-        </div>
-
         <div className="header__link-book">
           <Link
             className="link"

@@ -11,7 +11,8 @@
 }
 
 .header__logo{
-    height: 90px;
+	height: 90px;
+	margin-left: 20px;
 }
 
 .link {

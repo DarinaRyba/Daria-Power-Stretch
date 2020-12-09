@@ -1,15 +1,16 @@
-const { model, Schema } = require('mongoose');
+const { Schema } = require('mongoose');
+const mongoose = require('mongoose');
 
 const workoutSchema = new Schema({
-  name: String,
-  description: String,
-  price: Number,
-  image: String,
-  duration: String,
-  place: String,
-  scheduleInfo: String,
-  description2: String,
+  name: { type: String },
+  description: { type: String },
+  price: { type: Number },
+  image: { type: String },
+  duration: { type: String },
+  place: { type: String },
+  scheduleInfo: { type: String },
+  description2: { type: String },
   days: [{ type: Schema.Types.ObjectId, ref: 'Schedule' }]
 });
 
-module.exports = model('Workout', workoutSchema);
+module.exports = mongoose.model('Workout', workoutSchema);

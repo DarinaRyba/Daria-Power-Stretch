@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './WorkoutDetail.css';
@@ -10,6 +10,10 @@ import EventIcon from '@material-ui/icons/Event';
 import { requestWorkoutDetail } from '../../redux/actions/workout-actions';
 
 function WorkoutDetail({ workout, dispatch, match }) {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const { workoutId } = match.params;
 
   useEffect(() => {
@@ -64,18 +68,45 @@ function WorkoutDetail({ workout, dispatch, match }) {
             <EventIcon />
             <p className="icon-separator">
               {' '}
-              {workout?.schedule}
+              {workout?.scheduleInfo}
             </p>
           </div>
         </div>
 
         <div className="detail__card-button">
-          <Link
-            className="link"
-            to="/book"
-          >
-            <Button className="btn-book" variant="light">Book</Button>
-          </Link>
+
+          <Button className="btn-book" variant="primary" onClick={handleShow}>
+            Book
+          </Button>
+
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Choose your day</Modal.Title>
+            </Modal.Header>
+            <ul className="modal-card-list">
+              {workout?.days && workout?.days.map((workoutItem) => (
+                <li key={performance.now() * Math.random()} className="modal-list">
+                  <Modal.Body>
+                    {workoutItem.date}
+                    ;
+                    {' '}
+                    {workoutItem.time}
+                  </Modal.Body>
+                </li>
+
+              ))}
+
+            </ul>
+            <Modal.Footer>
+              <Button className="btn-book" variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+              <Button className="btn-book" variant="primary" onClick={handleClose}>
+                Confirm your booking
+              </Button>
+            </Modal.Footer>
+          </Modal>
+
         </div>
       </div>
 

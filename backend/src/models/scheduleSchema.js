@@ -1,11 +1,12 @@
-const { model, Schema } = require('mongoose');
+/* eslint-disable node/handle-callback-err */
+const { Schema } = require('mongoose');
+const mongoose = require('mongoose');
 
 const scheduleSchema = new Schema({
   day: String,
   time: String,
   workout: String,
-  workouts: [{ type: Schema.Types.ObjectId, ref: 'Workout' }],
-  participants: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+  participants: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 
-module.exports = model('Schedule', scheduleSchema);
+module.exports = mongoose.model('Schedule', scheduleSchema);
