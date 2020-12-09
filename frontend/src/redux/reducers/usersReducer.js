@@ -10,6 +10,10 @@ export default function usersReducer(state = {}, action) {
       return { ...state, user: null, isLogged: false };
     case actionTypes.AUTH_SIGNOUT_ERROR:
       return { ...state, errorUser: action.userError };
+    case actionTypes.LOAD_USER:
+      return { ...state, myUser: action.user, isLogged: true };
+    case actionTypes.LOAD_USER_ERROR:
+      return { ...state, errorUser: action.userError };
     default:
       return state;
   }

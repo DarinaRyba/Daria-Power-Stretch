@@ -30,6 +30,31 @@ export function addUser(userData) {
   };
 }
 
+export function loadUserSuccess(user) {
+  return {
+    type: actionTypes.LOAD_USER,
+    user,
+  };
+}
+
+export function loadUserError(userError) {
+  return {
+    type: actionTypes.LOAD_USER_ERROR,
+    userError,
+  };
+}
+
+export function loadUser() {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(serverUsersUrl);
+      dispatch(loadUserSuccess(data));
+    } catch (error) {
+      dispatch(loadUserError(error));
+    }
+  };
+}
+
 export function handleSignInSuccess(user) {
   return {
     type: actionTypes.AUTH_LOGIN,
@@ -62,42 +87,20 @@ export function signInWithGoogle() {
   provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
   return async (dispatch) => {
     try {
-      const { user } = await firebase.auth().signInWithPopup(provider);
-      dispatch(handleSignInSuccess(user));
-      dispatch(addUser({
-        displayName: user.displayName,
-        uid: user.uid,
-        email: user.email,
-        photoURL: user.photoURL,
-      }));
-      localStorage.setItem('user', JSON.stringify(user));
+      const result = await firebase.auth().signInWithPopup(provider);
+      dispatch(handleSignInSuccess(result));
+      localStorage.user = JSON.stringify(result);
+      if (result.additionalUserInfo.isNewUser) {
+        dispatch(addUser({
+          displayName: result.additionalUserInfo.profile.name,
+          uid: result.additionalUserInfo.profile.id,
+          photoURL: result.additionalUserInfo.profile.picture,
+        }));
+      } else {
+        dispatch(loadUser());
+      }
     } catch (error) {
       dispatch(handleSignInError(error));
-    }
-  };
-}
-
-export function loadUserSuccess(user) {
-  return {
-    type: actionTypes.LOAD_USER,
-    user,
-  };
-}
-
-export function loadUserError(userError) {
-  return {
-    type: actionTypes.LOAD_USER_ERROR,
-    userError,
-  };
-}
-
-export function loadUser(userData) {
-  return async (dispatch) => {
-    try {
-      const { data } = await axios.get(serverUsersUrl, userData);
-      dispatch(loadUserSuccess(data));
-    } catch (error) {
-      dispatch(loadUserError(error));
     }
   };
 }
