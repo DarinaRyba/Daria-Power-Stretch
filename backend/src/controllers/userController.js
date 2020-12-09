@@ -1,11 +1,11 @@
 function usersController (userSchema) {
   function getUserMethod (req, res) {
     const query = {};
-    userSchema.find(query, (usersError, users) => {
+    userSchema.find(query, (usersError, user) => {
       if (usersError) {
         res.send(usersError);
       }
-      res.json(users);
+      res.json(user);
     });
   }
 

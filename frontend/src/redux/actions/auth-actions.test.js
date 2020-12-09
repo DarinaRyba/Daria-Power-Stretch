@@ -134,7 +134,7 @@ describe('auth-actions', () => {
     test('should dispatch the correct action', async () => {
       axios.patch = jest.fn().mockResolvedValueOnce(fakeUser);
       const expectedActions = [
-        { type: actionTypes.LOAD_USER, user: fakeUser.data },
+        { type: actionTypes.ADD_USER, user: fakeUser.data },
       ];
 
       await store.dispatch(authActions.addUser({}));
@@ -145,7 +145,7 @@ describe('auth-actions', () => {
     test('should dispatch the correct action', async () => {
       axios.patch = jest.fn().mockRejectedValueOnce(fakeError);
       const expectedActions = [
-        { type: actionTypes.LOAD_USER_ERROR, userError: fakeError },
+        { type: actionTypes.ADD_USER_ERROR, userError: fakeError },
       ];
 
       await store.dispatch(authActions.addUser({}));

@@ -18,10 +18,10 @@
 }
 
 .detail__card {
-    width: 60%;
+    width: 73%;
     margin: auto;
     position: absolute;
-    top: 90%;   
+    top: 83%;   
     left: 0;
     right: 0;
     background-color: #edebe5;
@@ -77,6 +77,7 @@
 
 .detail__card-button {
     text-align: center;
+    margin-bottom: 10px;
 }
 
 .btn-book {
@@ -135,21 +136,22 @@
 
     .detail__card-description{
         font-size: 16px;
-        width: 70%;
-        margin: 30px auto auto auto;
+        width: 80%;
+        margin: 10px auto auto auto;
+        font-weight: lighter;
         
     }
     .detail_card-info {
-       margin-top: 30px;
+       margin-top: o;
     }
 
     .detail__card-schedule {
-        margin-top: 30px;
+        margin-top: 0;
         
     }
 
     .btn-book {
-        margin-top: 30px;
+        margin-top: 0;
        
     }
   
