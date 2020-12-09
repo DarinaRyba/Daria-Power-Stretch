@@ -2,14 +2,13 @@ function workoutController (workoutSchema) {
   function getWorkoutMethod (req, res) {
     const query = { _id: req.params.workoutId };
 
-    const getCallback = (workoutsError, workout) => (
-      workoutsError ? res.send(workoutsError) : res.json(workout)
-    );
-    const patata = workoutSchema.findOne(query)
-      .populate('days')
-      .exec(getCallback);
-    console.log(patata);
+    workoutSchema.findOne(query)
+      .populate({ path: 'days', populate: { path: 'participants', populate: { path: 'days' } } })
+      .exec((workoutsError, workout) => {
+        return workoutsError ? res.send(workoutsError) : res.json(workout);
+      });
   }
+
   return { getWorkoutMethod };
 }
 

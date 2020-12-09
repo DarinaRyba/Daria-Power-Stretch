@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Header.css';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,8 +15,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Login({ dispatch, user }) {
+function Login({ dispatch }) {
+  const [user, setUser] = useState(null);
   const classes = useStyles();
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem('user')));
+  }, []);
 
   const handleLogin = () => {
     dispatch(signInWithGoogle());
@@ -34,9 +39,12 @@ function Login({ dispatch, user }) {
           ? <Button onClick={() => handleLogin()} id="btn-login" className="header__btn-login" variant="contained">Login</Button>
           : <Button onClick={() => handleLogout()} id="btn-logout" className="header__btn-login" variant="contained">Logout</Button>}
       </div>
+
       <div className={classes.root}>
         <Avatar alt="" src={user?.photoURL} />
       </div>
+      {' '}
+
     </>
 
   );

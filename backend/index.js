@@ -6,9 +6,10 @@ const cors = require('cors');
 const morgan = require('morgan');
 const { connect } = require('mongoose');
 const workoutSchema = require('./src/models/workoutSchema');
-const workoutRouter = require('./src/routes/workoutRouter')(workoutSchema);
+const scheduleSchema = require('./src/models/scheduleSchema');
 const userSchema = require('./src/models/userSchema');
-const userRouter = require('./src/routes/userRouter')(userSchema);
+const workoutRouter = require('./src/routes/workoutRouter')(workoutSchema, scheduleSchema, userSchema);
+const userRouter = require('./src/routes/userRouter')(userSchema, scheduleSchema);
 
 const app = express();
 

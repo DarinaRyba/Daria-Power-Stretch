@@ -39,6 +39,7 @@ export function signInWithGoogle() {
     try {
       const { user } = await firebase.auth().signInWithPopup(provider);
       dispatch(handleSignInSuccess(user));
+      localStorage.setItem('user', JSON.stringify(user));
     } catch (error) {
       dispatch(handleSignInError(error));
     }
@@ -50,6 +51,7 @@ export function signOut() {
     try {
       await firebase.auth().signOut();
       dispatch(handleSignOutSuccess());
+      localStorage.removeItem('user');
     } catch (error) {
       dispatch(handleSignOutError(error));
     }

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './WorkoutDetail.css';
@@ -82,12 +81,12 @@ function WorkoutDetail({ workout, dispatch, match }) {
 
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-              <Modal.Title>Choose your class</Modal.Title>
+              <Modal.Title>Choose your day</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Monday 22/12/2020 at 11:30-12-45</Modal.Body>
-            <Modal.Body>Wednesday 24/12/2020 at 11:30-12-45</Modal.Body>
-            <Modal.Body>Monday 29/12/2020 at 11:30-12-45</Modal.Body>
-            <Modal.Body>Wednesday 31/12/2020 at 11:30-12-45</Modal.Body>
+            <Modal.Body>Monday 22/12/2020 at 11:30-12:45</Modal.Body>
+            <Modal.Body>Wednesday 24/12/2020 at 11:30-12:45</Modal.Body>
+            <Modal.Body>Monday 29/12/2020 at 11:30-12:45</Modal.Body>
+            <Modal.Body>Wednesday 31/12/2020 at 11:30-12:45</Modal.Body>
             <Modal.Footer>
               <Button className="btn-book" variant="secondary" onClick={handleClose}>
                 Close
