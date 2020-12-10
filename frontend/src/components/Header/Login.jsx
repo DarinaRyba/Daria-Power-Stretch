@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
-import { signInWithGoogle, signOut, saveUserFromLocalStorage } from '../../redux/actions/auth-actions';
+import { signInWithGoogle, signOut, saveUserFromLocalStorage } from '../../redux/actions/user-actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {

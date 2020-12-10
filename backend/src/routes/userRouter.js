@@ -7,7 +7,8 @@ function workoutRouter (userSchema, scheduleSchema) {
 
   router.route('/')
     .get(users.getUserMethod)
-    .patch(users.patchUserMethod);
+    .patch(users.patchUserMethod)
+    .put(users.putUserMethod);
 
   return router;
 }

@@ -23,6 +23,7 @@ export function addUser(userData) {
   return async (dispatch) => {
     try {
       const { data } = await axios.patch(serverUsersUrl, userData);
+      localStorage.user = JSON.stringify({ user: { ...data } });
       dispatch(addUserSuccess(data));
     } catch (error) {
       dispatch(addUserError(error));
@@ -34,24 +35,6 @@ export function loadUserSuccess(user) {
   return {
     type: actionTypes.LOAD_USER,
     user,
-  };
-}
-
-export function loadUserError(userError) {
-  return {
-    type: actionTypes.LOAD_USER_ERROR,
-    userError,
-  };
-}
-
-export function loadUser() {
-  return async (dispatch) => {
-    try {
-      const { data } = await axios.get(serverUsersUrl);
-      dispatch(loadUserSuccess(data));
-    } catch (error) {
-      dispatch(loadUserError(error));
-    }
   };
 }
 
@@ -90,15 +73,13 @@ export function signInWithGoogle() {
       const result = await firebase.auth().signInWithPopup(provider);
       const { user } = result;
       dispatch(handleSignInSuccess(user));
-      localStorage.user = JSON.stringify(user);
       if (result.additionalUserInfo.isNewUser) {
         dispatch(addUser({
           displayName: result.additionalUserInfo.profile.name,
           uid: result.additionalUserInfo.profile.id,
           photoURL: result.additionalUserInfo.profile.picture,
+          email: result.additionalUserInfo.profile.email,
         }));
-      } else {
-        dispatch(loadUser());
       }
     } catch (error) {
       dispatch(handleSignInError(error));
@@ -122,5 +103,32 @@ export function saveUserFromLocalStorage(user) {
   return {
     type: actionTypes.SAVE_USER,
     user,
+  };
+}
+
+export function createUserBookingSuccess(user) {
+  return {
+    type: actionTypes.CREATE_BOOKING,
+    user,
+  };
+}
+
+export function createUserBookingError(userError) {
+  return {
+    type: actionTypes.CREATE_BOOKING_ERROR,
+    userError,
+  };
+}
+
+export function createUserBooking(user, day) {
+  debugger;
+  return async (dispatch) => {
+    try {
+      debugger;
+      const { data } = await axios.put(serverUsersUrl, { user, day });
+      dispatch(createUserBookingSuccess(data));
+    } catch (error) {
+      dispatch(createUserBookingError(error));
+    }
   };
 }

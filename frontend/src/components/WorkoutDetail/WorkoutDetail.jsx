@@ -8,13 +8,22 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import PlaceIcon from '@material-ui/icons/Place';
 import EventIcon from '@material-ui/icons/Event';
 import { requestWorkoutDetail } from '../../redux/actions/workout-actions';
+import { createUserBooking } from '../../redux/actions/user-actions';
 
-function WorkoutDetail({ workout, dispatch, match }) {
+function WorkoutDetail({
+  workout, dispatch, match, user,
+}) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const { workoutId } = match.params;
+
+  function handleBook(day) {
+    debugger;
+    dispatch(createUserBooking(user, day));
+    handleClose();
+  }
 
   useEffect(() => {
     if (!workout || workoutId !== workout._id) {
@@ -91,6 +100,10 @@ function WorkoutDetail({ workout, dispatch, match }) {
                     ;
                     {' '}
                     {workoutItem.time}
+                    {' '}
+                    <Button className="btn-book" variant="primary" onClick={() => handleBook(workoutItem.date)}>
+                      Book
+                    </Button>
                   </Modal.Body>
                 </li>
 
@@ -101,9 +114,7 @@ function WorkoutDetail({ workout, dispatch, match }) {
               <Button className="btn-book" variant="secondary" onClick={handleClose}>
                 Close
               </Button>
-              <Button className="btn-book" variant="primary" onClick={handleClose}>
-                Confirm your booking
-              </Button>
+
             </Modal.Footer>
           </Modal>
 
@@ -140,6 +151,8 @@ WorkoutDetail.defaultProps = {
 function mapStateToProps(state) {
   return {
     workout: state.workoutReducer.workout,
+    user: state.usersReducer.user,
+
   };
 }
 

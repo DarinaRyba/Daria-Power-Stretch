@@ -3,7 +3,7 @@ import axios from 'axios';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import * as firebase from 'firebase';
-import * as authActions from './auth-actions';
+import * as userActions from './user-actions';
 import './firebase/firebaseIndex';
 import actionTypes from './actionTypes';
 
@@ -13,7 +13,7 @@ jest.mock('./firebase/firebaseIndex');
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-describe('auth-actions', () => {
+describe('user-actions', () => {
   let store;
   describe('signInWithGoogle', () => {
     beforeEach(() => {
@@ -51,7 +51,7 @@ describe('auth-actions', () => {
         { type: actionTypes.AUTH_LOGIN, user },
       ];
 
-      await store.dispatch(authActions.signInWithGoogle());
+      await store.dispatch(userActions.signInWithGoogle());
 
       expect(store.getActions()).toEqual(expectedActions);
     });
@@ -75,7 +75,7 @@ describe('auth-actions', () => {
         { type: actionTypes.AUTH_SIGNOUT },
       ];
 
-      await store.dispatch(authActions.signOut());
+      await store.dispatch(userActions.signOut());
 
       expect(store.getActions()).toEqual(expectedActions);
     });
@@ -101,7 +101,7 @@ describe('auth-actions', () => {
       const errorUser = 'error';
       const expectedActions = [{ type: actionTypes.AUTH_LOGIN_ERROR, errorUser }];
 
-      await store.dispatch(authActions.signInWithGoogle());
+      await store.dispatch(userActions.signInWithGoogle());
 
       expect(store.getActions()).toEqual(expectedActions);
     });
@@ -110,7 +110,7 @@ describe('auth-actions', () => {
       const errorUser = 'error';
       const expectedActions = [{ type: actionTypes.AUTH_SIGNOUT_ERROR, errorUser }];
 
-      await store.dispatch(authActions.signOut());
+      await store.dispatch(userActions.signOut());
 
       expect(store.getActions()).toEqual(expectedActions);
     });
@@ -137,7 +137,7 @@ describe('auth-actions', () => {
         { type: actionTypes.ADD_USER, user: fakeUser.data },
       ];
 
-      await store.dispatch(authActions.addUser({}));
+      await store.dispatch(userActions.addUser({}));
 
       expect(store.getActions()).toEqual(expectedActions);
     });
@@ -148,7 +148,7 @@ describe('auth-actions', () => {
         { type: actionTypes.ADD_USER_ERROR, userError: fakeError },
       ];
 
-      await store.dispatch(authActions.addUser({}));
+      await store.dispatch(userActions.addUser({}));
 
       expect(store.getActions()).toEqual(expectedActions);
     });
