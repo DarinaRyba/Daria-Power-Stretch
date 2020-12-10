@@ -88,8 +88,9 @@ export function signInWithGoogle() {
   return async (dispatch) => {
     try {
       const result = await firebase.auth().signInWithPopup(provider);
-      dispatch(handleSignInSuccess(result));
-      localStorage.user = JSON.stringify(result);
+      const { user } = result;
+      dispatch(handleSignInSuccess(user));
+      localStorage.user = JSON.stringify(user);
       if (result.additionalUserInfo.isNewUser) {
         dispatch(addUser({
           displayName: result.additionalUserInfo.profile.name,
@@ -108,11 +109,18 @@ export function signInWithGoogle() {
 export function signOut() {
   return async (dispatch) => {
     try {
+      localStorage.removeItem('user');
       await firebase.auth().signOut();
       dispatch(handleSignOutSuccess());
-      localStorage.removeItem('user');
     } catch (error) {
       dispatch(handleSignOutError(error));
     }
+  };
+}
+
+export function saveUserFromLocalStorage(user) {
+  return {
+    type: actionTypes.SAVE_USER,
+    user,
   };
 }

@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './Header.css';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
-import { signInWithGoogle, signOut } from '../../redux/actions/auth-actions';
+import { signInWithGoogle, signOut, saveUserFromLocalStorage } from '../../redux/actions/auth-actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,12 +16,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Login({ dispatch, user }) {
-  // const [user, setUser] = useState(JSON.parse(localStorage.user));
+  const userInLocalStorage = JSON.parse(window.localStorage.getItem('user'));
+  if (userInLocalStorage && !user) {
+    dispatch(saveUserFromLocalStorage(userInLocalStorage));
+  }
+
   const classes = useStyles();
-
-  useEffect(() => {
-
-  }, []);
 
   const handleLogin = () => {
     dispatch(signInWithGoogle());
@@ -34,13 +34,13 @@ function Login({ dispatch, user }) {
   return (
     <>
       <div className={classes.root}>
-        {!user?.user?.uid
-          ? <Button onClick={() => handleLogin()} id="btn-login" className="header__btn-login" variant="contained">Login</Button>
-          : <Button onClick={() => handleLogout()} id="btn-logout" className="header__btn-login" variant="contained">Logout</Button>}
+        {user
+          ? <Button onClick={() => handleLogout()} id="btn-logout" className="header__btn-login" variant="contained">Logout</Button>
+          : <Button onClick={() => handleLogin()} id="btn-login" className="header__btn-login" variant="contained">Login</Button>}
       </div>
 
       <div className={classes.root}>
-        <Avatar alt="" src={user?.additionalUserInfo?.profile?.picture} />
+        <Avatar alt="" src={user?.photoURL} />
       </div>
       {' '}
 
@@ -55,7 +55,7 @@ Login.propTypes = {
 };
 
 Login.defaultProps = {
-  user: { displayName: null },
+  user: null,
 };
 
 function mapStateToProps(state) {

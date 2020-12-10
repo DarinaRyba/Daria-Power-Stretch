@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 import React, { useState } from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';

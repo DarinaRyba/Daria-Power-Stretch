@@ -14,6 +14,8 @@ export default function usersReducer(state = {}, action) {
       return { ...state, myUser: action.user, isLogged: true };
     case actionTypes.LOAD_USER_ERROR:
       return { ...state, errorUser: action.userError };
+    case actionTypes.SAVE_USER:
+      return { ...state, user: action.user, isLogged: true };
     default:
       return state;
   }
