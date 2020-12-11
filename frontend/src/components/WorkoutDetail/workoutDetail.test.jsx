@@ -8,6 +8,7 @@ import WorkoutDetail from './WorkoutDetail';
 import { requestWorkoutDetail } from '../../redux/actions/workout-actions';
 
 jest.mock('../../redux/actions/workout-actions');
+jest.mock('../../redux/actions/user-actions');
 
 const buildStore = configureStore([thunk]);
 
@@ -17,7 +18,7 @@ describe('WourkoutDetail', () => {
   });
 
   test('should render workout name and description', () => {
-    const initialState = { workoutReducer: { workout: { name: 'a_name', description: 'a_description', price: 1 } } };
+    const initialState = { workoutReducer: { workout: { name: 'a_name', description: 'a_description', price: 1 } }, usersReducer: { user: null }, isLogged: false };
     const store = buildStore(initialState);
     store.dispatch = jest.fn();
     const Wrapper = ({ children }) => (
@@ -34,7 +35,7 @@ describe('WourkoutDetail', () => {
   });
 
   test('should make the request to get the workout detail', () => {
-    const initialState = { workoutReducer: {} };
+    const initialState = { workoutReducer: {}, usersReducer: { user: null }, isLogged: false };
     const store = buildStore(initialState);
     store.dispatch = jest.fn();
     const Wrapper = ({ children }) => (

@@ -23,10 +23,18 @@ export function addUser(userData) {
   return async (dispatch) => {
     try {
       const { data } = await axios.patch(serverUsersUrl, userData);
+      localStorage.user = JSON.stringify({ user: { ...data } });
       dispatch(addUserSuccess(data));
     } catch (error) {
       dispatch(addUserError(error));
     }
+  };
+}
+
+export function loadUserSuccess(user) {
+  return {
+    type: actionTypes.LOAD_USER,
+    user,
   };
 }
 
@@ -62,42 +70,17 @@ export function signInWithGoogle() {
   provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
   return async (dispatch) => {
     try {
-      const { user } = await firebase.auth().signInWithPopup(provider);
+      const result = await firebase.auth().signInWithPopup(provider);
+      const { user } = result;
       dispatch(handleSignInSuccess(user));
       dispatch(addUser({
-        displayName: user.displayName,
-        uid: user.uid,
-        email: user.email,
-        photoURL: user.photoURL,
+        displayName: result.additionalUserInfo.profile.name,
+        uid: result.additionalUserInfo.profile.id,
+        photoURL: result.additionalUserInfo.profile.picture,
+        email: result.additionalUserInfo.profile.email,
       }));
-      localStorage.setItem('user', JSON.stringify(user));
     } catch (error) {
       dispatch(handleSignInError(error));
-    }
-  };
-}
-
-export function loadUserSuccess(user) {
-  return {
-    type: actionTypes.LOAD_USER,
-    user,
-  };
-}
-
-export function loadUserError(userError) {
-  return {
-    type: actionTypes.LOAD_USER_ERROR,
-    userError,
-  };
-}
-
-export function loadUser(userData) {
-  return async (dispatch) => {
-    try {
-      const { data } = await axios.get(serverUsersUrl, userData);
-      dispatch(loadUserSuccess(data));
-    } catch (error) {
-      dispatch(loadUserError(error));
     }
   };
 }
@@ -105,11 +88,60 @@ export function loadUser(userData) {
 export function signOut() {
   return async (dispatch) => {
     try {
+      localStorage.removeItem('user');
       await firebase.auth().signOut();
       dispatch(handleSignOutSuccess());
-      localStorage.removeItem('user');
     } catch (error) {
       dispatch(handleSignOutError(error));
+    }
+  };
+}
+
+export function saveUserFromLocalStorageSucces(user) {
+  return {
+    type: actionTypes.SAVE_USER,
+    user,
+  };
+}
+
+export function saveUserFromLocalStorageError(errorUser) {
+  return {
+    type: actionTypes.SAVE_USER_ERROR,
+    errorUser,
+  };
+}
+
+export function saveUserFromLocalStorage(user) {
+  return async (dispatch) => {
+    try {
+      dispatch(saveUserFromLocalStorageSucces(user));
+    } catch (error) {
+      dispatch(saveUserFromLocalStorageError);
+    }
+  };
+}
+
+export function createUserBookingSuccess(user) {
+  return {
+    type: actionTypes.CREATE_BOOKING,
+    user,
+  };
+}
+
+export function createUserBookingError(userError) {
+  return {
+    type: actionTypes.CREATE_BOOKING_ERROR,
+    userError,
+  };
+}
+
+export function createUserBooking(user, day) {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.put(serverUsersUrl, { user, day });
+      dispatch(createUserBookingSuccess(data));
+    } catch (error) {
+      dispatch(createUserBookingError(error));
     }
   };
 }

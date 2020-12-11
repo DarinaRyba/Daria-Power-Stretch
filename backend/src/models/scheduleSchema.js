@@ -6,7 +6,7 @@ const scheduleSchema = new Schema({
   day: String,
   time: String,
   workout: String,
-  participants: { type: Schema.Types.ObjectId, ref: 'User' }
+  participants: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 });
 
 module.exports = mongoose.model('Schedule', scheduleSchema);

@@ -7,7 +7,7 @@ import thunk from 'redux-thunk';
 import Header from './Header';
 
 jest.mock('../../redux/actions/workout-actions');
-jest.mock('../../redux/actions/auth-actions');
+jest.mock('../../redux/actions/user-actions');
 
 const buildStore = configureStore([thunk]);
 

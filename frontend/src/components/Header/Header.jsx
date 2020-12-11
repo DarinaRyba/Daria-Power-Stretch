@@ -1,13 +1,15 @@
+/* eslint-disable import/no-named-as-default */
 import React, { useState } from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { connect } from 'react-redux';
 import BurgerButton from './BurgerButton';
 import Login from './Login';
 
-function Header() {
+function Header({ user }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -83,22 +85,27 @@ function Header() {
           </Menu>
         </div>
 
-        <div className="header__link-book">
-          <Link
-            className="link"
-            to="/book"
-          >
-            <p className="link__text">BOOK</p>
-          </Link>
-        </div>
-
         <div>
           <Link
             className="link"
             to="/aboutMe"
           >
-            <p className="link__text">ABOUT ME</p>
+            <p className="link__text">ABOUT DARIA</p>
           </Link>
+        </div>
+
+        <div className="header__link-book">
+          {user
+            ? (
+              <Link
+                className="link"
+                to="/myAccount"
+              >
+                <p className="link__text">MY ACCOUNT</p>
+              </Link>
+            )
+            : null}
+
         </div>
 
       </div>
@@ -109,5 +116,10 @@ function Header() {
 
   );
 }
-
-export default Header;
+function mapStateToProps(state) {
+  return {
+    user: state.usersReducer.user,
+    isLogged: state.usersReducer.isLogged,
+  };
+}
+export default connect(mapStateToProps)(Header);

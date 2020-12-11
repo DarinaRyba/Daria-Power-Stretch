@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import './Header.css';
-import Button from '@material-ui/core/Button';
+import './Login.css';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
-import { signInWithGoogle, signOut } from '../../redux/actions/auth-actions';
+import { signInWithGoogle, signOut, saveUserFromLocalStorage } from '../../redux/actions/user-actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,13 +17,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Login({ dispatch }) {
-  const [user, setUser] = useState(null);
-  const classes = useStyles();
+function Login({ dispatch, user }) {
+  const userInLocalStorage = JSON.parse(window.localStorage.getItem('user'));
+  if (userInLocalStorage && !user) {
+    dispatch(saveUserFromLocalStorage(userInLocalStorage));
+  }
 
-  useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem('user')));
-  }, []);
+  const classes = useStyles();
 
   const handleLogin = () => {
     dispatch(signInWithGoogle());
@@ -32,12 +34,31 @@ function Login({ dispatch }) {
   };
 
   return (
-
     <>
-      <div className={classes.root}>
-        {!user?.uid
-          ? <Button onClick={() => handleLogin()} id="btn-login" className="header__btn-login" variant="contained">Login</Button>
-          : <Button onClick={() => handleLogout()} id="btn-logout" className="header__btn-login" variant="contained">Logout</Button>}
+
+      <div className="link-login">
+        {user
+          ? (
+            <Link
+              id="btn-logout"
+              className="link"
+              to="/"
+              onClick={() => handleLogout()}
+            >
+              <p className="link-login__text">LOGOUT</p>
+            </Link>
+          )
+          : (
+            <Link
+              id="btn-login"
+              className="link"
+              to="/"
+              onClick={() => handleLogin()}
+            >
+              <p className="link__text">LOGIN</p>
+            </Link>
+          )}
+
       </div>
 
       <div className={classes.root}>
@@ -56,7 +77,7 @@ Login.propTypes = {
 };
 
 Login.defaultProps = {
-  user: { displayName: null },
+  user: null,
 };
 
 function mapStateToProps(state) {
