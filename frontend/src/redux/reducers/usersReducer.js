@@ -12,6 +12,8 @@ export default function usersReducer(state = {}, action) {
       return { ...state, errorUser: action.userError };
     case actionTypes.SAVE_USER:
       return { ...state, user: action.user, isLogged: true };
+    case actionTypes.SAVE_USER_ERROR:
+      return { ...state, errorUser: action.errorUser };
     case actionTypes.ADD_USER:
       return { ...state, user: action.user, isLogged: false };
     case actionTypes.ADD_USER_ERROR:

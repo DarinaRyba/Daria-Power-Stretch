@@ -16,6 +16,7 @@ function usersController (userSchema, scheduleSchema) {
       if (usersError) {
         return res.send(usersError);
       }
+      console.log(user);
       return res.json(user);
     });
   }

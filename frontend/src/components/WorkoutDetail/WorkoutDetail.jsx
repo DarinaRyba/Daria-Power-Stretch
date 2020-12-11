@@ -8,7 +8,7 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import PlaceIcon from '@material-ui/icons/Place';
 import EventIcon from '@material-ui/icons/Event';
 import { requestWorkoutDetail } from '../../redux/actions/workout-actions';
-import { createUserBooking } from '../../redux/actions/user-actions';
+import { createUserBooking, signInWithGoogle } from '../../redux/actions/user-actions';
 
 function WorkoutDetail({
   workout, dispatch, match, user,
@@ -20,10 +20,13 @@ function WorkoutDetail({
   const { workoutId } = match.params;
 
   function handleBook(day) {
-    debugger;
     dispatch(createUserBooking(user, day));
     handleClose();
   }
+
+  const handleLogin = () => {
+    dispatch(signInWithGoogle());
+  };
 
   useEffect(() => {
     if (!workout || workoutId !== workout._id) {
@@ -83,10 +86,17 @@ function WorkoutDetail({
         </div>
 
         <div className="detail__card-button">
-
-          <Button className="btn-book" variant="primary" onClick={handleShow}>
-            Book
-          </Button>
+          {user
+            ? (
+              <Button className="btn-book" variant="primary" onClick={handleShow}>
+                Book
+              </Button>
+            )
+            : (
+              <Button onClick={() => handleLogin()} className="btn-book" variant="primary">
+                Login to book
+              </Button>
+            )}
 
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -94,6 +104,7 @@ function WorkoutDetail({
             </Modal.Header>
             <ul className="modal-card-list">
               {workout?.days && workout?.days.map((workoutItem) => (
+
                 <li key={performance.now() * Math.random()} className="modal-list">
                   <Modal.Body>
                     {workoutItem.date}
@@ -101,9 +112,11 @@ function WorkoutDetail({
                     {' '}
                     {workoutItem.time}
                     {' '}
+
                     <Button className="btn-book" variant="primary" onClick={() => handleBook(workoutItem.date)}>
                       Book
                     </Button>
+
                   </Modal.Body>
                 </li>
 
@@ -133,7 +146,7 @@ WorkoutDetail.propTypes = {
     price: PropTypes.number.isRequired,
     duration: PropTypes.string.isRequired,
     place: PropTypes.string.isRequired,
-    schedule: PropTypes.string.isRequired,
+    scheduleInfo: PropTypes.string.isRequired,
     _id: PropTypes.string.isRequired,
   }),
   match: PropTypes.shape({
@@ -152,6 +165,7 @@ function mapStateToProps(state) {
   return {
     workout: state.workoutReducer.workout,
     user: state.usersReducer.user,
+    isLogged: state.usersReducer.isLogged,
 
   };
 }

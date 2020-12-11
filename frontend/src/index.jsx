@@ -9,6 +9,7 @@ import WorkoutDetail from './components/WorkoutDetail/WorkoutDetail';
 import MainPage from './components/MainPage/MainPage';
 import configureStore from './redux/configureStore';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Footer from './components/Footer/Footer';
 
 const store = configureStore();
 
@@ -20,8 +21,8 @@ ReactDOM.render(
         <Switch>
           <Route path="/" exact component={MainPage} />
           <Route path="/workouts/:workoutId" exact component={WorkoutDetail} />
-
         </Switch>
+        <Footer />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,

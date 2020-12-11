@@ -73,14 +73,12 @@ export function signInWithGoogle() {
       const result = await firebase.auth().signInWithPopup(provider);
       const { user } = result;
       dispatch(handleSignInSuccess(user));
-      if (result.additionalUserInfo.isNewUser) {
-        dispatch(addUser({
-          displayName: result.additionalUserInfo.profile.name,
-          uid: result.additionalUserInfo.profile.id,
-          photoURL: result.additionalUserInfo.profile.picture,
-          email: result.additionalUserInfo.profile.email,
-        }));
-      }
+      dispatch(addUser({
+        displayName: result.additionalUserInfo.profile.name,
+        uid: result.additionalUserInfo.profile.id,
+        photoURL: result.additionalUserInfo.profile.picture,
+        email: result.additionalUserInfo.profile.email,
+      }));
     } catch (error) {
       dispatch(handleSignInError(error));
     }
@@ -99,10 +97,27 @@ export function signOut() {
   };
 }
 
-export function saveUserFromLocalStorage(user) {
+export function saveUserFromLocalStorageSucces(user) {
   return {
     type: actionTypes.SAVE_USER,
     user,
+  };
+}
+
+export function saveUserFromLocalStorageError(errorUser) {
+  return {
+    type: actionTypes.SAVE_USER_ERROR,
+    errorUser,
+  };
+}
+
+export function saveUserFromLocalStorage(user) {
+  return async (dispatch) => {
+    try {
+      dispatch(saveUserFromLocalStorageSucces(user));
+    } catch (error) {
+      dispatch(saveUserFromLocalStorageError);
+    }
   };
 }
 
@@ -121,10 +136,8 @@ export function createUserBookingError(userError) {
 }
 
 export function createUserBooking(user, day) {
-  debugger;
   return async (dispatch) => {
     try {
-      debugger;
       const { data } = await axios.put(serverUsersUrl, { user, day });
       dispatch(createUserBookingSuccess(data));
     } catch (error) {
