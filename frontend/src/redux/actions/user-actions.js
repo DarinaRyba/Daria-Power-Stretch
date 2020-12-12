@@ -78,6 +78,7 @@ export function signInWithGoogle() {
         uid: result.additionalUserInfo.profile.id,
         photoURL: result.additionalUserInfo.profile.picture,
         email: result.additionalUserInfo.profile.email,
+
       }));
     } catch (error) {
       dispatch(handleSignInError(error));

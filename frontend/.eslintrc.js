@@ -23,5 +23,6 @@ module.exports = {
     'no-underscore-dangle': 0,
     'no-debugger': 0,
     'react/prop-types': 0,
+    'react/jsx-no-target-blank': 0,
   },
 };

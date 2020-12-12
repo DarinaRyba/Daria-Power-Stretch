@@ -5,8 +5,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { connect } from 'react-redux';
 
-function BurgerButton() {
+function BurgerButton({ user }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -61,18 +62,24 @@ function BurgerButton() {
         </Link>
         <Link
           className="link"
-          to="/schedule"
-        >
-          {' '}
-          <MenuItem onClick={handleClose}>Schedule/prices</MenuItem>
-        </Link>
-        <Link
-          className="link"
           to="/aboutMe"
         >
           {' '}
-          <MenuItem onClick={handleClose}>About me</MenuItem>
+          <MenuItem onClick={handleClose}>About Daria</MenuItem>
         </Link>
+
+        {user
+          ? (
+            <Link
+              className="link"
+              to="/myAccount"
+            >
+              {' '}
+              <MenuItem onClick={handleClose}>My Account</MenuItem>
+            </Link>
+          )
+          : null}
+
       </Menu>
 
     </div>
@@ -80,4 +87,11 @@ function BurgerButton() {
   );
 }
 
-export default BurgerButton;
+function mapStateToProps(state) {
+  return {
+    user: state.usersReducer.user,
+    isLogged: state.usersReducer.isLogged,
+  };
+}
+
+export default connect(mapStateToProps)(BurgerButton);
