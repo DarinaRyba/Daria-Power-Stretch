@@ -11,6 +11,7 @@ import configureStore from './redux/configureStore';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from './components/Footer/Footer';
 import UserProfile from './components/UserProfile/UserProfile';
+import AboutMe from './components/AboutMe/AboutMe';
 
 const store = configureStore();
 
@@ -23,6 +24,7 @@ ReactDOM.render(
           <Route path="/" exact component={MainPage} />
           <Route path="/workouts/:workoutId" exact component={WorkoutDetail} />
           <Route path="/myAccount" exact component={UserProfile} />
+          <Route path="/aboutMe" exact component={AboutMe} />
         </Switch>
         <Footer />
       </BrowserRouter>
