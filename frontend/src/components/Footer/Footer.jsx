@@ -22,8 +22,12 @@ function Footer() {
       <div className="footer__contact">CONTACT ME</div>
       <div className="flex-spacer" />
       <div className="footer__social">
-        <InstagramIcon className="social-link" />
-        <FacebookIcon className="social-link" />
+        <a href="https://www.instagram.com/powerstretch.bcn/" target="_blank">
+          <InstagramIcon className="social-link" />
+        </a>
+        <a href="https://www.facebook.com/barcelonaflexibility" target="_blank">
+          <FacebookIcon className="social-link" />
+        </a>
       </div>
 
     </footer>

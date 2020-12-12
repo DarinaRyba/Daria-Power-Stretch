@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
 import './Login.css';
-
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -37,7 +36,7 @@ function Login({ dispatch, user }) {
     <>
 
       <div className="link-login">
-        {user
+        {userInLocalStorage?.user
           ? (
             <Link
               id="btn-logout"
@@ -62,7 +61,7 @@ function Login({ dispatch, user }) {
       </div>
 
       <div className={classes.root}>
-        <Avatar alt="" src={user?.photoURL} />
+        <Avatar alt="" src={userInLocalStorage?.user?.photoURL} />
       </div>
       {' '}
 

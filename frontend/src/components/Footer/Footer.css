@@ -1,7 +1,7 @@
 .footer-container {
     padding: 20px;
     margin-top: 40px;
-    max-width: 100vw;
+    width: 100%;
 	padding: 15px;
 	display: flex;
 	align-items: center;
@@ -11,7 +11,8 @@
     color: #82614e !important;
 	font-family: 'Lato', sans-serif !important;
 	outline-style: none !important;
-	font-size: 16px !important;
+    font-size: 16px !important;
+   
 }
 
 .footer__logo {
@@ -24,8 +25,8 @@
 
 .social-link {
     color: #41555a87 !important;
-    width: 40px !important;
-    height: 40px !important;
+    width: 30px !important;
+    height: 30px !important;
 }
 .footer__contact {
     margin-left: 30px;
