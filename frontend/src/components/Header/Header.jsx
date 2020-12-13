@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { connect } from 'react-redux';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import BurgerButton from './BurgerButton';
 import Login from './Login';
 
@@ -53,6 +54,10 @@ function Header({ user }) {
         <div>
           <Button className="link__classes" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
             Classes
+            <span>
+              {' '}
+              <ArrowDropDownIcon />
+            </span>
           </Button>
           <Menu
             id="simple-menu"

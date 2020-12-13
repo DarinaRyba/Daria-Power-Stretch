@@ -21,6 +21,8 @@ function Footer() {
 
       <div className="footer__contact">CONTACT ME</div>
       <div className="flex-spacer" />
+      <small>Copyright &copy;2020. Darina Rybalchenko.All rights reserved</small>
+      <div className="flex-spacer" />
       <div className="footer__social">
         <a href="https://www.instagram.com/powerstretch.bcn/" target="_blank">
           <InstagramIcon className="social-link" />

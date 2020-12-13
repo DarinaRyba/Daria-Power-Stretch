@@ -51,8 +51,8 @@
 }
 
 .avatar {
-    width: 80px !important;
-    height: 80px !important;
+    width: 100px !important;
+    height: 100px !important;
 }
 
 @media screen and (min-width: 600px) {

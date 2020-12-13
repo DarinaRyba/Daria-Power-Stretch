@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
     justifyContent: 'center',
-    padding: '30px',
+    padding: '16px',
   },
   large: {
     width: theme.spacing(7),
@@ -53,7 +53,6 @@ function UserProfile() {
           Day:
           {' '}
           {localStorage?.user?.days?.day}
-          ,
           {' '}
           {localStorage?.user?.days?.time}
         </p>
