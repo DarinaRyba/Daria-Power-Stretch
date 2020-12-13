@@ -103,19 +103,20 @@ function WorkoutDetail({
               <Modal.Title>Choose your day</Modal.Title>
             </Modal.Header>
             <ul className="modal-card-list">
+
               {workout?.days && workout?.days.map((workoutItem) => (
 
                 <li key={performance.now() * Math.random()} className="modal-list">
                   <Modal.Body>
                     {workoutItem.date}
-                    ;
-                    {' '}
                     {workoutItem.time}
-                    {' '}
-
-                    <Button className="btn-book" variant="primary" onClick={() => handleBook(workoutItem.date)}>
-                      Book
-                    </Button>
+                    {workoutItem.participants.includes(user.user._id)
+                      ? <p>You have already booked</p>
+                      : (
+                        <Button className="btn-book" variant="primary" onClick={() => handleBook(workoutItem.date)}>
+                          Book
+                        </Button>
+                      )}
 
                   </Modal.Body>
                 </li>
