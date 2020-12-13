@@ -1,6 +1,5 @@
 /* eslint-disable node/no-callback-literal */
-const workoutSchema = require('../models/workoutSchema');
-const workoutController = require('./workoutController')(workoutSchema);
+const workoutController = require('./workoutController');
 
 describe('workoutController', () => {
   describe('GetMethod', () => {
@@ -13,11 +12,15 @@ describe('workoutController', () => {
         params: { workoutId: '1' }
       };
 
-      workoutSchema.findOne = jest.fn().mockImplementationOnce((query, callback) => {
-        callback(false, {});
-      });
+      const workout = {
+        findOne: jest.fn().mockReturnValueOnce({
+          populate: jest.fn().mockReturnValueOnce({
+            exec: jest.fn().mockImplementationOnce((callback) => callback())
+          })
+        })
+      };
 
-      workoutController.getWorkoutMethod(req, res);
+      workoutController(workout).getWorkoutMethod(req, res);
 
       expect(res.json).toHaveBeenCalled();
     });
@@ -32,11 +35,15 @@ describe('workoutController', () => {
         params: { workoutId: '1' }
       };
 
-      workoutSchema.findOne = jest.fn().mockImplementationOnce((query, callback) => {
-        callback(true, {});
-      });
+      const workout = {
+        findOne: jest.fn().mockReturnValueOnce({
+          populate: jest.fn().mockReturnValueOnce({
+            exec: jest.fn().mockImplementationOnce((callback) => callback(true))
+          })
+        })
+      };
 
-      workoutController.getWorkoutMethod(req, res);
+      workoutController(workout).getWorkoutMethod(req, res);
 
       expect(res.send).toHaveBeenCalled();
     });

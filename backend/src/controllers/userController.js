@@ -13,7 +13,6 @@ function usersController (userSchema, scheduleSchema) {
 
   function patchUserMethod ({ body }, res) {
     const query = { email: body.email };
-    console.log('este es patch method', query);
     userSchema.findOneAndUpdate(query, body, { new: true, upsert: true, useFindAndModify: false }, (usersError, user) => {
       if (usersError) {
         return res.send(usersError);
@@ -31,7 +30,7 @@ function usersController (userSchema, scheduleSchema) {
     let dayFound;
     await scheduleSchema.findOne(queryFound, (daysError, days) => {
       if (daysError) {
-        console.log(daysError);
+        res.send(daysError);
       } else {
         dayFound = days;
         days.participants.push(userId);
@@ -44,6 +43,8 @@ function usersController (userSchema, scheduleSchema) {
         res.send(userError);
       } else {
         user.days.push(dayFound._id);
+        console.log(dayFound);
+        console.log(body);
         user.save();
         res.send(user);
       }
