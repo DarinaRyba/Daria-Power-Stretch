@@ -23,7 +23,7 @@ export function addUser(userData) {
   return async (dispatch) => {
     try {
       const { data } = await axios.patch(serverUsersUrl, userData);
-      localStorage.user = JSON.stringify({ user: { ...data } });
+      localStorage.user = JSON.stringify({ ...data });
       dispatch(addUserSuccess(data));
     } catch (error) {
       dispatch(addUserError(error));

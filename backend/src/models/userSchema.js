@@ -5,7 +5,6 @@ const userSchema = new Schema({
   uid: String,
   email: String,
   photoURL: String,
-  phoneNumber: Number,
   age: Number,
   days: [{ type: Schema.Types.ObjectId, ref: 'Schedule' }]
 });

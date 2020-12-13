@@ -36,7 +36,7 @@ function Login({ dispatch, user }) {
     <>
 
       <div className="link-login">
-        {userInLocalStorage?.user
+        {userInLocalStorage
           ? (
             <Link
               id="btn-logout"
@@ -61,7 +61,7 @@ function Login({ dispatch, user }) {
       </div>
 
       <div className={classes.root}>
-        <Avatar alt="" src={userInLocalStorage?.user?.photoURL} />
+        <Avatar alt="" src={userInLocalStorage?.photoURL} />
       </div>
       {' '}
 

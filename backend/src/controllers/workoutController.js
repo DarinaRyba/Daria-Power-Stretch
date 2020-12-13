@@ -3,7 +3,7 @@ function workoutController (workoutSchema) {
     const query = { _id: req.params.workoutId };
 
     workoutSchema.findOne(query)
-      .populate({ path: 'days', populate: { path: 'participants', populate: { path: 'days' } } })
+      .populate({ path: 'days' })
       .exec((workoutsError, workout) => {
         return workoutsError ? res.send(workoutsError) : res.json(workout);
       });
