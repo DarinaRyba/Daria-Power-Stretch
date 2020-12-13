@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 function UserProfile() {
   const userInLocalStorage = JSON.parse(window.localStorage.getItem('user'));
+  console.log(userInLocalStorage?.user.days[0]);
   const classes = useStyles();
   return (
     <main className="user-profile-container">
@@ -47,12 +48,12 @@ function UserProfile() {
         <p className="booking-workout-text">
           Workout:
           {' '}
-          {localStorage?.user?.days?.workout}
+          {localStorage?.user?.user?.days[0]?.workout}
         </p>
         <p className="booking-day-text">
           Day:
           {' '}
-          {localStorage?.user?.days?.day}
+          {userInLocalStorage?.user?.days[0]}
           {' '}
           {localStorage?.user?.days?.time}
         </p>

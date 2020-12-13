@@ -1,12 +1,14 @@
 function usersController (userSchema, scheduleSchema) {
   function getUserMethod (req, res) {
     const query = {};
-    userSchema.find(query, (usersError, user) => {
-      if (usersError) {
-        res.send(usersError);
-      }
-      res.json(user);
-    });
+    userSchema.find(query)
+      .populate({ path: 'days' })
+      .exec((usersError, user) => {
+        if (usersError) {
+          res.send(usersError);
+        }
+        res.json(user);
+      });
   }
 
   function patchUserMethod ({ body }, res) {
@@ -24,6 +26,8 @@ function usersController (userSchema, scheduleSchema) {
   async function putUserMethod ({ body }, res) {
     const userId = body.user._id;
     const queryFound = { date: body.day };
+    console.log('put method user', userId);
+    console.log('put method queryFound', queryFound);
 
     let dayFound;
     await scheduleSchema.findOne(queryFound, (daysError, days) => {

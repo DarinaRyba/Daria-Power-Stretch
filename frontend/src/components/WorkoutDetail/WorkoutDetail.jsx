@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import PlaceIcon from '@material-ui/icons/Place';
 import EventIcon from '@material-ui/icons/Event';
+import { Link } from 'react-router-dom';
 import { requestWorkoutDetail } from '../../redux/actions/workout-actions';
 import { createUserBooking, signInWithGoogle } from '../../redux/actions/user-actions';
 
@@ -100,20 +101,23 @@ function WorkoutDetail({
 
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-              <Modal.Title>Choose your day</Modal.Title>
+              <Modal.Title className="modal-title">Choose your day</Modal.Title>
             </Modal.Header>
             <ul className="modal-card-list">
 
               {workout?.days && workout?.days.map((workoutItem) => (
 
                 <li key={performance.now() * Math.random()} className="modal-list">
-                  <Modal.Body>
-                    {workoutItem.date}
-                    {workoutItem.time}
+                  <Modal.Body className="modal-body">
+                    <div className="modal-body__text">
+                      {workoutItem.date}
+                      { ' ' }
+                      {workoutItem.time}
+                    </div>
                     {workoutItem.participants.includes(user?.user?._id)
-                      ? <p>You have already booked</p>
+                      ? <p className="modal__already-booked">You have already booked this class</p>
                       : (
-                        <Button className="btn-book" variant="primary" onClick={() => handleBook(workoutItem.date)}>
+                        <Button className="modal__btn-book" variant="primary" onClick={() => handleBook(workoutItem.date)}>
                           Book
                         </Button>
                       )}
@@ -125,9 +129,13 @@ function WorkoutDetail({
 
             </ul>
             <Modal.Footer>
-              <Button className="btn-book" variant="secondary" onClick={handleClose}>
+              <Link
+                className="link"
+                onClick={handleClose}
+              >
                 Close
-              </Button>
+                {' '}
+              </Link>
 
             </Modal.Footer>
           </Modal>
