@@ -31,13 +31,6 @@ export function addUser(userData) {
   };
 }
 
-export function loadUserSuccess(user) {
-  return {
-    type: actionTypes.LOAD_USER,
-    user,
-  };
-}
-
 export function handleSignInSuccess(user) {
   return {
     type: actionTypes.AUTH_LOGIN,
@@ -114,11 +107,7 @@ export function saveUserFromLocalStorageError(errorUser) {
 
 export function saveUserFromLocalStorage(user) {
   return async (dispatch) => {
-    try {
-      dispatch(saveUserFromLocalStorageSucces(user));
-    } catch (error) {
-      dispatch(saveUserFromLocalStorageError);
-    }
+    dispatch(saveUserFromLocalStorageSucces(user));
   };
 }
 

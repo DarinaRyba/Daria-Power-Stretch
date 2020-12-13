@@ -16,7 +16,7 @@ describe('BurgerButton', () => {
   });
 
   test('should open menu', () => {
-    const initialState = {};
+    const initialState = { usersReducer: { user: null }, isLogged: false };
     const store = buildStore(initialState);
     store.dispatch = jest.fn();
 
@@ -28,11 +28,13 @@ describe('BurgerButton', () => {
       </Provider>
     );
 
+    const handleClick = jest.fn();
+
     render(<BurgerButton />, { wrapper: Wrapper });
     const buttonElement = document.querySelector('.burger-btn');
     const event = { currentTarget: buttonElement };
     fireEvent.click(buttonElement, event);
 
-    expect(buttonElement).toBeInTheDocument();
+    expect(handleClick).toHaveBeenCalled();
   });
 });

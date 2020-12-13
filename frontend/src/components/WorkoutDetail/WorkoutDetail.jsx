@@ -40,7 +40,7 @@ function WorkoutDetail({
         {workoutItem.participants.includes(user?._id)
           ? <p className="modal__already-booked">You have already booked this class</p>
           : (
-            <Button className="modal__btn-book" variant="primary" onClick={() => handleBook(workoutItem.date)}>
+            <Button id="modal__btn-book" className="modal__btn-book" variant="primary" onClick={() => handleBook(workoutItem.date)}>
               Book
             </Button>
           )}
@@ -96,7 +96,7 @@ function WorkoutDetail({
         <div className="detail__card-button">
           {user
             ? (
-              <Button className="btn-book" variant="primary" onClick={handleShow}>
+              <Button id="btn-book" className="btn-book" variant="primary" onClick={handleShow}>
                 Book
               </Button>
             )
