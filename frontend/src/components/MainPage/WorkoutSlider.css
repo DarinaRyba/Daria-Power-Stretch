@@ -1,0 +1,30 @@
+.d-block w-100 {
+    object-fit: cover !important;
+
+}
+
+.carousel-container {
+    margin-top: 30px;
+}
+
+.carousel-title{
+    font-family: 'Lato', sans-serif !important;
+    color: #41555a
+}
+
+.carousel-slogan{
+    font-family: 'Lato', sans-serif !important;
+    color: #41555a
+}
+
+@media screen and (min-width: 865px) {
+    .carousel-item{
+        height: 400px !important; 
+    }
+    
+    .d-block w-100 {
+        object-fit: cover !important;
+    
+    }
+  
+}

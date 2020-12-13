@@ -1,10 +1,12 @@
 import React from 'react';
 import './MainPage.css';
 import WorkoutList from './WorkoutList';
+import WorkoutSlider from './WorkoutSlider';
 
 function MainPage() {
   return (
     <>
+      <WorkoutSlider />
 
       <div className="web-description">
         <p>

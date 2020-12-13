@@ -110,7 +110,7 @@ function WorkoutDetail({
                   <Modal.Body>
                     {workoutItem.date}
                     {workoutItem.time}
-                    {workoutItem.participants.includes(user.user._id)
+                    {workoutItem.participants.includes(user?.user?._id)
                       ? <p>You have already booked</p>
                       : (
                         <Button className="btn-book" variant="primary" onClick={() => handleBook(workoutItem.date)}>

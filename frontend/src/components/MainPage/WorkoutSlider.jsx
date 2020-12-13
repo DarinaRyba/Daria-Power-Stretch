@@ -10,44 +10,31 @@ function WorkoutSlider() {
   };
 
   return (
-    <Carousel activeIndex={index} onSelect={handleSelect}>
+    <Carousel className="carousel-container" activeIndex={index} onSelect={handleSelect}>
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="holder.js/800x400?text=First slide&bg=373940"
+          src="https://trello-attachments.s3.amazonaws.com/5fc0f7845fca4370bc8c6bca/5fd5f90bf74a1f8ece54ad3f/a73ec630183a16f269ffc37602d3b80e/yoga-class-beach-meditation-tips-011617.jpg"
           alt="First slide"
         />
         <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+          <h3 className="carousel-title">Stretching</h3>
+          <p className="carousel-slogan">For those who stretch the limits</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="holder.js/800x400?text=Second slide&bg=282c34"
+          src="https://trello-attachments.s3.amazonaws.com/5fc0f7845fca4370bc8c6bca/5fd5fb8012d0136f6290b8bf/d32b5ebda1344709ab0c9c5501bb0a4b/Benefits_of_Beach_Yoga.jpeg"
           alt="Second slide"
         />
 
         <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <h3 className="carousel-title">Yoga</h3>
+          <p className="carousel-slogan">Connecting your mind, body and soul</p>
         </Carousel.Caption>
       </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src="holder.js/800x400?text=Third slide&bg=20232a"
-          alt="Third slide"
-        />
 
-        <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
-        </Carousel.Caption>
-      </Carousel.Item>
     </Carousel>
   );
 }
