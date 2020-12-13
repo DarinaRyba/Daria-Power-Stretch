@@ -18,46 +18,36 @@ function usersController (userSchema, scheduleSchema) {
       if (usersError) {
         return res.send(usersError);
       }
-      console.log(user);
       return res.json(user);
     });
   }
 
   async function putUserMethod ({ body }, res) {
     const userId = body.user._id;
+    const query = { _id: userId };
+
     const queryFound = { date: body.day };
-    console.log('put method user', userId);
-    console.log('put method queryFound', queryFound);
 
     let dayFound;
     await scheduleSchema.findOne(queryFound, (daysError, days) => {
       if (daysError) {
-        return res.send(daysError);
+        console.log(daysError);
       } else {
         dayFound = days;
-        if (isUserAlreadyInSchedule(userId, dayFound)) {
-          return res.send('You have already booked this workout');
-        } else {
-          days.participants.push(userId);
-          days.save();
-          const query = { _id: userId };
-          userSchema.findOne(query, (userError, user) => {
-            if (userError) {
-              res.send(userError);
-            } else {
-              user.days.push(dayFound._id);
-              user.save();
-              res.send(user);
-            }
-          });
-        }
+        days.participants.push(userId);
+        days.save();
       }
     });
-  }
 
-  function isUserAlreadyInSchedule (userId, schedule) {
-    const { participants } = schedule;
-    return participants.includes(userId);
+    userSchema.findOne(query, (userError, user) => {
+      if (userError) {
+        res.send(userError);
+      } else {
+        user.days.push(dayFound._id);
+        user.save();
+        res.send(user);
+      }
+    });
   }
 
   return {

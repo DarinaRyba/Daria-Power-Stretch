@@ -7,36 +7,48 @@ import Button from 'react-bootstrap/Button';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import PlaceIcon from '@material-ui/icons/Place';
 import EventIcon from '@material-ui/icons/Event';
-import { Link } from 'react-router-dom';
 import { requestWorkoutDetail } from '../../redux/actions/workout-actions';
-import { createUserBooking, signInWithGoogle } from '../../redux/actions/user-actions';
+import { createUserBooking } from '../../redux/actions/user-actions';
 
 function WorkoutDetail({
   workout, dispatch, match, user,
 }) {
   const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const { workoutId } = match.params;
-
-  function handleBook(day) {
-    dispatch(createUserBooking(user, day));
-    handleClose();
-  }
-
-  const handleLogin = () => {
-    dispatch(signInWithGoogle());
-  };
 
   useEffect(() => {
     if (!workout || workoutId !== workout._id) {
       dispatch(requestWorkoutDetail(workoutId));
     }
-  }, [workout, workoutId]);
+  }, [workout, workoutId, user]);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  function handleBook(day) {
+    dispatch(createUserBooking(user, day));
+    dispatch(requestWorkoutDetail(workoutId));
+    handleClose();
+  }
+
+  const scheduleList = () => workout.days.map((workoutItem) => (
+    <li key={performance.now() * Math.random()} className="modal-list">
+      <Modal.Body className="modal-body">
+        <div className="modal-body__text">
+          {`${workoutItem.date} ${workoutItem.time}`}
+        </div>
+        {workoutItem.participants.includes(user?._id)
+          ? <p className="modal__already-booked">You have already booked this class</p>
+          : (
+            <Button className="modal__btn-book" variant="primary" onClick={() => handleBook(workoutItem.date)}>
+              Book
+            </Button>
+          )}
+      </Modal.Body>
+    </li>
+  ));
 
   return (
-
     <main className="detail-wrapper">
       <div className="detail__image">
         <img
@@ -53,12 +65,7 @@ function WorkoutDetail({
           <p>{workout?.description}</p>
         </div>
         <div className="detail__card-price">
-          <p>
-            Price:
-            {' '}
-            {workout?.price}
-            €
-          </p>
+          <p>{`Price: ${workout?.price}€`}</p>
         </div>
         <div className="detail_card-info">
           <div className="icon-wrapper">
@@ -94,9 +101,9 @@ function WorkoutDetail({
               </Button>
             )
             : (
-              <Button onClick={() => handleLogin()} className="btn-book" variant="primary">
+              <p className="btn-book">
                 Login to book
-              </Button>
+              </p>
             )}
 
           <Modal show={show} onHide={handleClose}>
@@ -104,38 +111,16 @@ function WorkoutDetail({
               <Modal.Title className="modal-title">Choose your day</Modal.Title>
             </Modal.Header>
             <ul className="modal-card-list">
-
-              {workout?.days && workout?.days.map((workoutItem) => (
-
-                <li key={performance.now() * Math.random()} className="modal-list">
-                  <Modal.Body className="modal-body">
-                    <div className="modal-body__text">
-                      {workoutItem.date}
-                      { ' ' }
-                      {workoutItem.time}
-                    </div>
-                    {workoutItem.participants.includes(user?.user?._id)
-                      ? <p className="modal__already-booked">You have already booked this class</p>
-                      : (
-                        <Button className="modal__btn-book" variant="primary" onClick={() => handleBook(workoutItem.date)}>
-                          Book
-                        </Button>
-                      )}
-
-                  </Modal.Body>
-                </li>
-
-              ))}
-
+              {workout?.days && scheduleList()}
             </ul>
             <Modal.Footer>
-              <Link
+              <button
+                type="button"
                 className="link"
                 onClick={handleClose}
               >
                 Close
-                {' '}
-              </Link>
+              </button>
 
             </Modal.Footer>
           </Modal>

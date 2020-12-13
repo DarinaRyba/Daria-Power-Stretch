@@ -22,25 +22,23 @@ const useStyles = makeStyles((theme) => ({
 
 function UserProfile() {
   const userInLocalStorage = JSON.parse(window.localStorage.getItem('user'));
-  console.log(userInLocalStorage?.user.days[0]);
+
   const classes = useStyles();
   return (
     <main className="user-profile-container">
       <div className="user-profile__image">
         <div className={classes.root}>
-          <Avatar className="avatar" alt="" src={userInLocalStorage?.user?.photoURL} />
+          <Avatar className="avatar" alt="" src={userInLocalStorage?.photoURL} />
         </div>
       </div>
       <div className="user-profile__info">
         <p>
-          Name:
-          {' '}
-          {userInLocalStorage?.user?.displayName}
+          {`Name: ${userInLocalStorage?.displayName}`}
         </p>
         <p>
           Email:
           {' '}
-          {userInLocalStorage?.user?.email}
+          {userInLocalStorage?.email}
         </p>
       </div>
       <div className="user-profile__booking">
@@ -48,14 +46,14 @@ function UserProfile() {
         <p className="booking-workout-text">
           Workout:
           {' '}
-          {localStorage?.user?.user?.days[0]?.workout}
+          {userInLocalStorage?.days[0]?.workout}
         </p>
         <p className="booking-day-text">
           Day:
           {' '}
-          {userInLocalStorage?.user?.days[0]}
+          {userInLocalStorage?.days[0]}
           {' '}
-          {localStorage?.user?.days?.time}
+          {userInLocalStorage?.days?.time}
         </p>
         <p className="booking-workout-text">Workout: Stretching</p>
         <p className="booking-day-text">Day: Monday 21/12/2020, 11:30-12:45</p>
