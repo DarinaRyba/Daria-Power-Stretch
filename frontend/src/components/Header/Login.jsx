@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
-import { signInWithGoogle, signOut, saveUserFromLocalStorage } from '../../redux/actions/user-actions';
+import { signInWithGoogle, signOut, fetchUser } from '../../redux/actions/user-actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme) => ({
 function Login({ dispatch, user }) {
   const userInLocalStorage = JSON.parse(window.localStorage.getItem('user'));
   if (userInLocalStorage && !user) {
-    dispatch(saveUserFromLocalStorage(userInLocalStorage));
+    dispatch(fetchUser(userInLocalStorage._id));
+    // dispatch(saveUserFromLocalStorage(userInLocalStorage));
   }
 
   const classes = useStyles();

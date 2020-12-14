@@ -6,9 +6,11 @@ function workoutRouter (userSchema, scheduleSchema) {
   const users = usersController(userSchema, scheduleSchema);
 
   router.route('/')
-    .get(users.getUserMethod)
     .patch(users.patchUserMethod)
     .put(users.putUserMethod);
+
+  router.route('/:userId')
+    .get(users.getUserMethod);
 
   return router;
 }

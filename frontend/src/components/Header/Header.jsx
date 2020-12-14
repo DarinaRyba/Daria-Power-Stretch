@@ -104,7 +104,7 @@ function Header({ user }) {
             ? (
               <Link
                 className="link"
-                to="/myAccount"
+                to={`/users/${user._id}`}
               >
                 <p className="link__text">MY ACCOUNT</p>
               </Link>

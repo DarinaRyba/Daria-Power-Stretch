@@ -128,3 +128,28 @@ export function createUserBooking(user, day) {
     }
   };
 }
+
+export function fetchUserSuccess(user) {
+  return {
+    type: actionTypes.FETCH_USER,
+    user,
+  };
+}
+
+export function fetchUserError(userError) {
+  return {
+    type: actionTypes.FETCH_USER_ERROR,
+    userError,
+  };
+}
+
+export function fetchUser(userId) {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`${serverUsersUrl}/${userId}`);
+      dispatch(fetchUserSuccess(data));
+    } catch (error) {
+      dispatch(fetchUserError(error));
+    }
+  };
+}

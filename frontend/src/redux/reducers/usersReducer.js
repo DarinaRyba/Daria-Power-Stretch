@@ -20,6 +20,10 @@ export default function usersReducer(state = {}, action) {
       return { ...state, user: action.user };
     case actionTypes.CREATE_BOOKING_ERROR:
       return { ...state, errorUser: action.userError };
+    case actionTypes.FETCH_USER:
+      return { ...state, user: action.user };
+    case actionTypes.FETCH_USER_ERROR:
+      return { ...state, errorUser: action.userError };
 
     default:
       return state;

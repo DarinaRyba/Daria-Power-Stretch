@@ -8,7 +8,7 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import PlaceIcon from '@material-ui/icons/Place';
 import EventIcon from '@material-ui/icons/Event';
 import { requestWorkoutDetail } from '../../redux/actions/workout-actions';
-import { createUserBooking } from '../../redux/actions/user-actions';
+import { createUserBooking, fetchUser } from '../../redux/actions/user-actions';
 
 function WorkoutDetail({
   workout, dispatch, match, user,
@@ -28,7 +28,7 @@ function WorkoutDetail({
   function handleBook(day) {
     dispatch(createUserBooking(user, day));
     dispatch(requestWorkoutDetail(workoutId));
-
+    dispatch(fetchUser(user._id));
     handleClose();
   }
 
