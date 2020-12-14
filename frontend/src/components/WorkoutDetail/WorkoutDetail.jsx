@@ -28,6 +28,7 @@ function WorkoutDetail({
   function handleBook(day) {
     dispatch(createUserBooking(user, day));
     dispatch(requestWorkoutDetail(workoutId));
+
     handleClose();
   }
 
@@ -111,6 +112,7 @@ function WorkoutDetail({
               {workout?.days && scheduleList()}
             </ul>
             <Modal.Footer>
+
               <button
                 type="button"
                 className="link-close"

@@ -18,7 +18,22 @@ describe('WourkoutDetail', () => {
   });
 
   test('should render workout name and description', () => {
-    const initialState = { workoutReducer: { workout: { name: 'a_name', description: 'a_description', price: 1 } }, usersReducer: { user: null }, isLogged: false };
+    const initialState = {
+      workoutReducer: {
+        workout: {
+          name: 'a_name',
+          description: 'a_description',
+          price: 1,
+          image: 'an_image',
+          duration: 'duration',
+          place: 'place',
+          scheduleInfo: 'schedule',
+          _id: '1',
+        },
+      },
+      usersReducer: { user: 'a_user' },
+      isLogged: true,
+    };
     const store = buildStore(initialState);
     store.dispatch = jest.fn();
     const Wrapper = ({ children }) => (
@@ -29,7 +44,7 @@ describe('WourkoutDetail', () => {
       </Provider>
     );
 
-    render(<WorkoutDetail match={{ params: {} }} />, { wrapper: Wrapper });
+    render(<WorkoutDetail match={{ params: { workoutId: '' } }} />, { wrapper: Wrapper });
 
     expect(document.querySelector('h4').textContent).toBe('a_name');
   });
@@ -46,23 +61,28 @@ describe('WourkoutDetail', () => {
       </Provider>
     );
 
-    render(<WorkoutDetail match={{ params: {} }} />, { wrapper: Wrapper });
+    render(<WorkoutDetail match={{ params: { workoutId: '' } }} />, { wrapper: Wrapper });
 
     expect(requestWorkoutDetail).toHaveBeenCalled();
   });
 
   test('should make the request to get the workout detail when click book in the model', () => {
-    const userMock = {
-      _id: 'someId',
+    const initialState = {
+      workoutReducer: {
+        workout: {
+          name: 'a_name',
+          description: 'a_description',
+          price: 1,
+          image: 'an_image',
+          duration: 'duration',
+          place: 'place',
+          scheduleInfo: 'schedule',
+          _id: '1',
+        },
+      },
+      usersReducer: { user: 'a_user' },
+      isLogged: true,
     };
-    const localStorage = {
-      getItem: jest.fn().mockReturnValue(userMock),
-    };
-    Object.defineProperty(window, 'localStorage', {
-      value: localStorage,
-    });
-    JSON.parse = jest.fn().mockReturnValue(userMock);
-    const initialState = { workoutReducer: { workout: { name: 'a_name', description: 'a_description', price: 1 } }, usersReducer: { user: 'a_user' }, isLogged: true };
     const store = buildStore(initialState);
     store.dispatch = jest.fn();
     const Wrapper = ({ children }) => (
@@ -73,7 +93,7 @@ describe('WourkoutDetail', () => {
       </Provider>
     );
 
-    render(<WorkoutDetail match={{ params: {} }} />, { wrapper: Wrapper });
+    render(<WorkoutDetail match={{ params: { workoutId: '' } }} />, { wrapper: Wrapper });
     const buttonElement = document.querySelector('#modal__btn-book');
     fireEvent.click(buttonElement);
 
@@ -90,7 +110,22 @@ describe('WourkoutDetail', () => {
       value: localStorage,
     });
     JSON.parse = jest.fn().mockReturnValue(userMock);
-    const initialState = { workoutReducer: { workout: { name: 'a_name', description: 'a_description', price: 1 } }, usersReducer: { user: 'a_user' }, isLogged: true };
+    const initialState = {
+      workoutReducer: {
+        workout: {
+          name: 'a_name',
+          description: 'a_description',
+          price: 1,
+          image: 'an_image',
+          duration: 'duration',
+          place: 'place',
+          scheduleInfo: 'schedule',
+          _id: '1',
+        },
+      },
+      usersReducer: { user: 'a_user' },
+      isLogged: true,
+    };
     const store = buildStore(initialState);
     store.dispatch = jest.fn();
     const Wrapper = ({ children }) => (
@@ -102,7 +137,7 @@ describe('WourkoutDetail', () => {
     );
     const handleShow = jest.fn();
 
-    render(<WorkoutDetail match={{ params: {} }} />, { wrapper: Wrapper });
+    render(<WorkoutDetail match={{ params: { workoutId: '' } }} />, { wrapper: Wrapper });
 
     const buttonElement = document.querySelector('#btn-book');
     fireEvent.click(buttonElement);

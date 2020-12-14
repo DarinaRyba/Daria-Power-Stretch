@@ -14,6 +14,17 @@ describe('UserProfile', () => {
   });
 
   test('should render', () => {
+    const userMock = {
+      _id: 'someId',
+    };
+    const localStorage = {
+      getItem: jest.fn().mockReturnValue(userMock),
+    };
+    Object.defineProperty(window, 'localStorage', {
+      value: localStorage,
+    });
+    JSON.parse = jest.fn().mockReturnValue(userMock);
+
     const initialState = { userReducer: { } };
     const store = buildStore(initialState);
     store.dispatch = jest.fn();
