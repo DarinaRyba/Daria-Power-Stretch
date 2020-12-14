@@ -3,6 +3,7 @@ import './UserProfile.css';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { fetchUser } from '../../redux/actions/user-actions';
 
 const useStyles = makeStyles((theme) => ({
@@ -24,7 +25,7 @@ function UserProfile({ user, dispatch, match }) {
   const { userId } = match.params;
   useEffect(() => {
     dispatch(fetchUser(userId));
-  }, [user, userId, user]);
+  }, []);
 
   const classes = useStyles();
   return (
@@ -61,6 +62,26 @@ function UserProfile({ user, dispatch, match }) {
     </main>
   );
 }
+
+UserProfile.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    photoURL: PropTypes.string.isRequired,
+    displayName: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    days: PropTypes.string.isRequired,
+  }),
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      userId: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
+
+UserProfile.defaultProps = {
+  user: null,
+};
+
 function mapStateToProps(state) {
   return {
     user: state.usersReducer.user,

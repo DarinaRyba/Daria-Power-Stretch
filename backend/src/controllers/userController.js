@@ -1,7 +1,6 @@
 function usersController (userSchema, scheduleSchema) {
   function getUserMethod (req, res) {
     const query = { _id: req.params.userId };
-    console.log(req.params);
     userSchema.findOne(query)
       .populate({ path: 'days' })
       .exec((usersError, user) => {
@@ -40,17 +39,15 @@ function usersController (userSchema, scheduleSchema) {
     });
 
     const query = { _id: userId };
-    userSchema.findOne(query)
-      .populate({ path: 'days' })
-      .exec((userError, user) => {
-        if (userError) {
-          res.send(userError);
-        } else {
-          user.days.push(dayFound._id);
-          user.save();
-          res.send(user);
-        }
-      });
+    userSchema.findOne(query, (userError, user) => {
+      if (userError) {
+        res.send(userError);
+      } else {
+        user.days.push(dayFound._id);
+        user.save();
+        res.send(user);
+      }
+    });
   }
 
   return {

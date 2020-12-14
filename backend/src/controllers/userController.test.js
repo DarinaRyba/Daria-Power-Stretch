@@ -6,29 +6,38 @@ const userController = require('./userController')(userSchema, scheduleSchema);
 describe('userController', () => {
   describe('getMethod', () => {
     test('should call json', () => {
+      const req = {
+        params: { userId: { _id: '1' } }
+      };
+
       const res = {
         json: jest.fn()
       };
-      userSchema.find = jest.fn().mockReturnValueOnce({
+      userSchema.findOne = jest.fn().mockReturnValueOnce({
         populate: jest.fn().mockReturnValueOnce({
-          exec: jest.fn().mockImplementationOnce((callback) => callback())
+          exec: jest.fn().mockImplementationOnce((callback) => callback(false))
+
         })
       });
-      userController.getUserMethod(null, res);
+      userController.getUserMethod(req, res);
       expect(res.json).toHaveBeenCalled();
     });
 
-    test('should call json with error', () => {
+    test('should call send', () => {
+      const req = {
+        params: { userId: { _id: '1' } }
+      };
       const res = {
         json: jest.fn(),
         send: jest.fn()
       };
-      userSchema.find = jest.fn().mockReturnValueOnce({
+      userSchema.findOne = jest.fn().mockReturnValueOnce({
         populate: jest.fn().mockReturnValueOnce({
           exec: jest.fn().mockImplementationOnce((callback) => callback(true))
+
         })
       });
-      userController.getUserMethod(null, res);
+      userController.getUserMethod(req, res);
       expect(res.send).toHaveBeenCalled();
     });
   });

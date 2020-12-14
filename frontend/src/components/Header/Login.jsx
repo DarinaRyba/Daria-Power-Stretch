@@ -20,7 +20,6 @@ function Login({ dispatch, user }) {
   const userInLocalStorage = JSON.parse(window.localStorage.getItem('user'));
   if (userInLocalStorage && !user) {
     dispatch(fetchUser(userInLocalStorage._id));
-    // dispatch(saveUserFromLocalStorage(userInLocalStorage));
   }
 
   const classes = useStyles();
