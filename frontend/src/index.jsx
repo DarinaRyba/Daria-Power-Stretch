@@ -23,7 +23,7 @@ ReactDOM.render(
         <Switch>
           <Route path="/" exact component={MainPage} />
           <Route path="/workouts/:workoutId" exact component={WorkoutDetail} />
-          <Route path="/myAccount" exact component={UserProfile} />
+          <Route path="/users/:userId" exact component={UserProfile} />
           <Route path="/aboutMe" exact component={AboutMe} />
         </Switch>
         <Footer />

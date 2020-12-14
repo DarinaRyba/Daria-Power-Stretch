@@ -1,6 +1,7 @@
 /* eslint-disable node/no-callback-literal */
 const userSchema = require('../models/userSchema');
-const userController = require('./userController')(userSchema);
+const scheduleSchema = require('../models/scheduleSchema');
+const userController = require('./userController')(userSchema, scheduleSchema);
 
 describe('userController', () => {
   describe('getMethod', () => {
@@ -8,8 +9,10 @@ describe('userController', () => {
       const res = {
         json: jest.fn()
       };
-      userSchema.find = jest.fn().mockImplementationOnce((query, callback) => {
-        callback(false, {});
+      userSchema.find = jest.fn().mockReturnValueOnce({
+        populate: jest.fn().mockReturnValueOnce({
+          exec: jest.fn().mockImplementationOnce((callback) => callback())
+        })
       });
       userController.getUserMethod(null, res);
       expect(res.json).toHaveBeenCalled();
@@ -20,8 +23,10 @@ describe('userController', () => {
         json: jest.fn(),
         send: jest.fn()
       };
-      userSchema.find = jest.fn().mockImplementationOnce((query, callback) => {
-        callback(true, {});
+      userSchema.find = jest.fn().mockReturnValueOnce({
+        populate: jest.fn().mockReturnValueOnce({
+          exec: jest.fn().mockImplementationOnce((callback) => callback(true))
+        })
       });
       userController.getUserMethod(null, res);
       expect(res.send).toHaveBeenCalled();
@@ -36,8 +41,10 @@ describe('userController', () => {
       const req = {
         body: { uid: 'uid' }
       };
-      userSchema.findOneAndUpdate = jest.fn().mockImplementationOnce((query, body, upsert, callback) => {
-        callback(false, {});
+      userSchema.findOneAndUpdate = jest.fn().mockReturnValue({
+        populate: jest.fn().mockReturnValue({
+          exec: jest.fn().mockImplementationOnce((callback) => callback(false))
+        })
       });
       userController.patchUserMethod(req, res);
       expect(res.json).toHaveBeenCalled();
@@ -52,10 +59,72 @@ describe('userController', () => {
         body: { uid: 'uid' }
       };
 
-      userSchema.findOneAndUpdate = jest.fn().mockImplementationOnce((query, body, upsert, callback) => {
-        callback(true, {});
+      userSchema.findOneAndUpdate = jest.fn().mockReturnValue({
+        populate: jest.fn().mockReturnValue({
+          exec: jest.fn().mockImplementationOnce((callback) => callback(true))
+        })
       });
       userController.patchUserMethod(req, res);
+      expect(res.send).toHaveBeenCalled();
+    });
+  });
+  describe('puthMethod', () => {
+    test('should call send with error', async () => {
+      const res = {
+        send: jest.fn()
+      };
+      const req = {
+        body: { user: { _id: '1' } }
+      };
+      scheduleSchema.findOne = jest.fn().mockImplementationOnce((queryFound, callback) => {
+        callback(true, {});
+      });
+      await userController.putUserMethod(req, res);
+      expect(res.send).toHaveBeenCalled();
+    });
+    test('should call scheduleSchema', async () => {
+      const res = {
+        send: jest.fn()
+      };
+      const req = {
+        body: { user: { _id: '1' } }
+      };
+      scheduleSchema.findOne = jest.fn().mockImplementationOnce((queryFound, callback) => {
+        callback(false, { participants: [{ body: { user: { _id: '1' } } }], save: jest.fn() });
+      });
+      await userController.putUserMethod(req, res);
+      expect(scheduleSchema.findOne).toHaveBeenCalled();
+    });
+
+    test('should call send with error', () => {
+      const res = {
+        send: jest.fn()
+      };
+      const req = {
+        body: { user: { _id: '1' } }
+      };
+      userSchema.findOne = jest.fn().mockImplementationOnce((queryFound, callback) => {
+        callback(true, {});
+      });
+      userController.putUserMethod(req, res);
+      expect(scheduleSchema.findOne).toHaveBeenCalled();
+    });
+    test('should call userSchema', async () => {
+      const res = {
+        send: jest.fn()
+      };
+      const req = {
+        body: { user: { _id: '1' } }
+      };
+      const days = [{ body: { _id: '1' } }];
+      scheduleSchema.findOne = jest.fn().mockImplementationOnce((queryFound, callback) => {
+        callback(false, { participants: [{ body: { user: { _id: '1' } } }], save: jest.fn() });
+      });
+      userSchema.findOne = jest.fn().mockImplementationOnce((query, callback) => {
+        callback(false, { days, save: jest.fn() });
+      });
+
+      await userController.putUserMethod(req, res);
       expect(res.send).toHaveBeenCalled();
     });
   });

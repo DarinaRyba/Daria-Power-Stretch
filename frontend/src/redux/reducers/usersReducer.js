@@ -12,8 +12,6 @@ export default function usersReducer(state = {}, action) {
       return { ...state, errorUser: action.userError };
     case actionTypes.SAVE_USER:
       return { ...state, user: action.user, isLogged: true };
-    case actionTypes.SAVE_USER_ERROR:
-      return { ...state, errorUser: action.errorUser };
     case actionTypes.ADD_USER:
       return { ...state, user: action.user, isLogged: false };
     case actionTypes.ADD_USER_ERROR:
@@ -21,6 +19,10 @@ export default function usersReducer(state = {}, action) {
     case actionTypes.CREATE_BOOKING:
       return { ...state, user: action.user };
     case actionTypes.CREATE_BOOKING_ERROR:
+      return { ...state, errorUser: action.userError };
+    case actionTypes.FETCH_USER:
+      return { ...state, user: action.user };
+    case actionTypes.FETCH_USER_ERROR:
       return { ...state, errorUser: action.userError };
 
     default:

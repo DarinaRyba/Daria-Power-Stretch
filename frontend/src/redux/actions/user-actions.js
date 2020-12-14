@@ -31,13 +31,6 @@ export function addUser(userData) {
   };
 }
 
-export function loadUserSuccess(user) {
-  return {
-    type: actionTypes.LOAD_USER,
-    user,
-  };
-}
-
 export function handleSignInSuccess(user) {
   return {
     type: actionTypes.AUTH_LOGIN,
@@ -105,20 +98,9 @@ export function saveUserFromLocalStorageSucces(user) {
   };
 }
 
-export function saveUserFromLocalStorageError(errorUser) {
-  return {
-    type: actionTypes.SAVE_USER_ERROR,
-    errorUser,
-  };
-}
-
 export function saveUserFromLocalStorage(user) {
   return async (dispatch) => {
-    try {
-      dispatch(saveUserFromLocalStorageSucces(user));
-    } catch (error) {
-      dispatch(saveUserFromLocalStorageError);
-    }
+    dispatch(saveUserFromLocalStorageSucces(user));
   };
 }
 
@@ -143,6 +125,31 @@ export function createUserBooking(user, day) {
       dispatch(createUserBookingSuccess(data));
     } catch (error) {
       dispatch(createUserBookingError(error));
+    }
+  };
+}
+
+export function fetchUserSuccess(user) {
+  return {
+    type: actionTypes.FETCH_USER,
+    user,
+  };
+}
+
+export function fetchUserError(userError) {
+  return {
+    type: actionTypes.FETCH_USER_ERROR,
+    userError,
+  };
+}
+
+export function fetchUser(userId) {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`${serverUsersUrl}/${userId}`);
+      dispatch(fetchUserSuccess(data));
+    } catch (error) {
+      dispatch(fetchUserError(error));
     }
   };
 }

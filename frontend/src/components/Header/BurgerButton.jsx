@@ -71,6 +71,7 @@ function BurgerButton({ user }) {
         {user
           ? (
             <Link
+              id="link-myAccount"
               className="link"
               to="/myAccount"
             >

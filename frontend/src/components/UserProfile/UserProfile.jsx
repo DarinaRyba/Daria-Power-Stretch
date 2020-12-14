@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './UserProfile.css';
-import { connect } from 'react-redux';
-
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import { fetchUser } from '../../redux/actions/user-actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,46 +20,52 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function UserProfile() {
-  const userInLocalStorage = JSON.parse(window.localStorage.getItem('user'));
+function UserProfile({ user, dispatch, match }) {
+  const { userId } = match.params;
+  useEffect(() => {
+    dispatch(fetchUser(userId));
+  }, [user, userId, user]);
 
   const classes = useStyles();
   return (
     <main className="user-profile-container">
       <div className="user-profile__image">
         <div className={classes.root}>
-          <Avatar className="avatar" alt="" src={userInLocalStorage?.photoURL} />
+          <Avatar className="avatar" alt="" src={user?.photoURL} />
         </div>
       </div>
       <div className="user-profile__info">
         <p>
-          {`Name: ${userInLocalStorage?.displayName}`}
+          {`Name: ${user?.displayName}`}
         </p>
         <p>
-          Email:
-          {' '}
-          {userInLocalStorage?.email}
+          {`Email: ${user?.email} `}
         </p>
       </div>
       <div className="user-profile__booking">
-        <p className="booking-title-text">Booked classes</p>
-        <p className="booking-workout-text">
-          Workout:
-          {' '}
-          {userInLocalStorage?.days[0]?.workout}
-        </p>
-        <p className="booking-day-text">
-          Day:
-          {' '}
-          {userInLocalStorage?.days[0]}
-          {' '}
-          {userInLocalStorage?.days?.time}
-        </p>
-        <p className="booking-workout-text">Workout: Stretching</p>
-        <p className="booking-day-text">Day: Monday 21/12/2020, 11:30-12:45</p>
+        <p className="booking-title-text">Booked classes:</p>
+        <ul className="booked-classes-list">
+          {user && user.days.map((scheduleItem) => (
+            <li key={performance.now() * Math.random()} className="list">
+              <p className="booking-workout-text">
+                {`Workout: ${scheduleItem.workout}`}
+              </p>
+              <p className="booking-day-text">
+                {`Day: ${scheduleItem.date} Time: ${scheduleItem.time}`}
+              </p>
+            </li>
+          ))}
+
+        </ul>
       </div>
     </main>
   );
 }
+function mapStateToProps(state) {
+  return {
+    user: state.usersReducer.user,
+    isLogged: state.usersReducer.isLogged,
+  };
+}
 
-export default connect()(UserProfile);
+export default connect(mapStateToProps)(UserProfile);

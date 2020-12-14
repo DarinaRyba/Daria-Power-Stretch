@@ -8,7 +8,7 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import PlaceIcon from '@material-ui/icons/Place';
 import EventIcon from '@material-ui/icons/Event';
 import { requestWorkoutDetail } from '../../redux/actions/workout-actions';
-import { createUserBooking } from '../../redux/actions/user-actions';
+import { createUserBooking, fetchUser } from '../../redux/actions/user-actions';
 
 function WorkoutDetail({
   workout, dispatch, match, user,
@@ -28,6 +28,7 @@ function WorkoutDetail({
   function handleBook(day) {
     dispatch(createUserBooking(user, day));
     dispatch(requestWorkoutDetail(workoutId));
+    dispatch(fetchUser(user._id));
     handleClose();
   }
 
@@ -40,7 +41,7 @@ function WorkoutDetail({
         {workoutItem.participants.includes(user?._id)
           ? <p className="modal__already-booked">You have already booked this class</p>
           : (
-            <Button className="modal__btn-book" variant="primary" onClick={() => handleBook(workoutItem.date)}>
+            <Button id="modal__btn-book" className="modal__btn-book" variant="primary" onClick={() => handleBook(workoutItem.date)}>
               Book
             </Button>
           )}
@@ -71,14 +72,12 @@ function WorkoutDetail({
           <div className="icon-wrapper">
             <AccessTimeIcon />
             <p className="icon-separator">
-              {' '}
               {workout?.duration}
             </p>
           </div>
           <div className="icon-wrapper">
             <p className="icon-separator">
               <PlaceIcon />
-              {' '}
               {workout?.place}
             </p>
           </div>
@@ -87,7 +86,6 @@ function WorkoutDetail({
           <div className="icon-wrapper">
             <EventIcon />
             <p className="icon-separator">
-              {' '}
               {workout?.scheduleInfo}
             </p>
           </div>
@@ -96,12 +94,12 @@ function WorkoutDetail({
         <div className="detail__card-button">
           {user
             ? (
-              <Button className="btn-book" variant="primary" onClick={handleShow}>
+              <Button id="btn-book" className="btn-book" variant="primary" onClick={handleShow}>
                 Book
               </Button>
             )
             : (
-              <p className="btn-book">
+              <p className="btn-notLogged">
                 Login to book
               </p>
             )}
@@ -114,9 +112,10 @@ function WorkoutDetail({
               {workout?.days && scheduleList()}
             </ul>
             <Modal.Footer>
+
               <button
                 type="button"
-                className="link"
+                className="link-close"
                 onClick={handleClose}
               >
                 Close

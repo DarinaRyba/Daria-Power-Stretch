@@ -1,7 +1,8 @@
 function usersController (userSchema, scheduleSchema) {
   function getUserMethod (req, res) {
-    const query = {};
-    userSchema.find(query)
+    const query = { _id: req.params.userId };
+    console.log(req.params);
+    userSchema.findOne(query)
       .populate({ path: 'days' })
       .exec((usersError, user) => {
         if (usersError) {
@@ -13,25 +14,24 @@ function usersController (userSchema, scheduleSchema) {
 
   function patchUserMethod ({ body }, res) {
     const query = { email: body.email };
-    console.log('este es patch method', query);
-    userSchema.findOneAndUpdate(query, body, { new: true, upsert: true, useFindAndModify: false }, (usersError, user) => {
-      if (usersError) {
-        return res.send(usersError);
-      }
-      return res.json(user);
-    });
+    userSchema.findOneAndUpdate(query, body, { new: true, upsert: true, useFindAndModify: false })
+      .populate({ path: 'days' })
+      .exec((usersError, user) => {
+        if (usersError) {
+          res.send(usersError);
+        }
+        res.json(user);
+      });
   }
 
   async function putUserMethod ({ body }, res) {
     const userId = body.user._id;
-    const query = { _id: userId };
-
-    const queryFound = { date: body.day };
 
     let dayFound;
+    const queryFound = { date: body.day };
     await scheduleSchema.findOne(queryFound, (daysError, days) => {
       if (daysError) {
-        console.log(daysError);
+        res.send(daysError);
       } else {
         dayFound = days;
         days.participants.push(userId);
@@ -39,15 +39,18 @@ function usersController (userSchema, scheduleSchema) {
       }
     });
 
-    userSchema.findOne(query, (userError, user) => {
-      if (userError) {
-        res.send(userError);
-      } else {
-        user.days.push(dayFound._id);
-        user.save();
-        res.send(user);
-      }
-    });
+    const query = { _id: userId };
+    userSchema.findOne(query)
+      .populate({ path: 'days' })
+      .exec((userError, user) => {
+        if (userError) {
+          res.send(userError);
+        } else {
+          user.days.push(dayFound._id);
+          user.save();
+          res.send(user);
+        }
+      });
   }
 
   return {

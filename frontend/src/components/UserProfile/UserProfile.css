@@ -35,7 +35,9 @@
     margin-left: 10px;
     align-self: center;
 }
-
+.booked-classes-list {
+    list-style-type: none;
+}
 .booking-workout-text {
     margin-top: 10px;
     margin-bottom: 0;

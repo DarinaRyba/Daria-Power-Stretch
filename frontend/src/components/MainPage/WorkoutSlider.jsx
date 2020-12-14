@@ -14,7 +14,7 @@ function WorkoutSlider() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="https://trello-attachments.s3.amazonaws.com/5fc0f7845fca4370bc8c6bca/5fd5f90bf74a1f8ece54ad3f/a73ec630183a16f269ffc37602d3b80e/yoga-class-beach-meditation-tips-011617.jpg"
+          src="https://trello-attachments.s3.amazonaws.com/5fc0f7845fca4370bc8c6bca/5fd75975f84e7771934529fd/3eaf1fd878ae79ed414b4258a793f451/yoga-class-beach-meditation-tips-011617.jpg"
           alt="First slide"
         />
         <Carousel.Caption>

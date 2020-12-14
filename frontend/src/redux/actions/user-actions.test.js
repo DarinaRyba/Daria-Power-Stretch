@@ -22,10 +22,15 @@ describe('user-actions', () => {
       jest.spyOn(firebase, 'auth').mockImplementation(() => ({
         signInWithPopup: jest.fn().mockImplementation(() => Promise.resolve({
           user: {
-            displayName: 'abc',
-            email: 'bca',
-            phoneNumber: 'c',
-            photoURL: 'd',
+            displayName: { additionalUserInfo: { profile: { name: 'a' } } },
+            uid: { additionalUserInfo: { profile: { uid: 'b' } } },
+            photoURL: { additionalUserInfo: { profile: { photoURL: 'c' } } },
+            email: { additionalUserInfo: { profile: { email: 'd' } } },
+          },
+          additionalUserInfo: {
+            profile: {
+              name: '1', uid: '2', photURL: '3', email: '4',
+            },
           },
         })),
       }));
@@ -41,18 +46,19 @@ describe('user-actions', () => {
     });
 
     test('should dispatch the correct action', async () => {
+      axios.patch = jest.fn().mockResolvedValueOnce();
+
       const user = {
-        displayName: 'abc',
-        email: 'bca',
-        phoneNumber: 'c',
-        photoURL: 'd',
+        displayName: { additionalUserInfo: { profile: { name: 'a' } } },
+        uid: { additionalUserInfo: { profile: { uid: 'b' } } },
+        photoURL: { additionalUserInfo: { profile: { photoURL: 'c' } } },
+        email: { additionalUserInfo: { profile: { email: 'd' } } },
       };
       const expectedActions = [
         { type: actionTypes.AUTH_LOGIN, user },
       ];
 
       await store.dispatch(userActions.signInWithGoogle());
-
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
@@ -149,6 +155,68 @@ describe('user-actions', () => {
       ];
 
       await store.dispatch(userActions.addUser({}));
+
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  describe('saveUserFromLocalStorage', () => {
+    let fakeUser;
+
+    beforeEach(() => {
+      store = mockStore();
+      fakeUser = { data: {} };
+    });
+
+    afterEach(() => {
+      jest.resetAllMocks();
+      store = null;
+    });
+
+    test('should dispatch the correct action', async () => {
+      const expectedActions = [
+        { type: actionTypes.SAVE_USER, user: fakeUser.data },
+      ];
+
+      await store.dispatch(userActions.saveUserFromLocalStorage({}));
+
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  describe('createUserBooking', () => {
+    let fakeUser;
+    let fakeError;
+
+    beforeEach(() => {
+      store = mockStore();
+      fakeUser = { data: {} };
+      fakeError = 'error';
+    });
+
+    afterEach(() => {
+      jest.resetAllMocks();
+      store = null;
+    });
+
+    test('should dispatch the correct action', async () => {
+      axios.put = jest.fn().mockResolvedValueOnce(fakeUser);
+      const expectedActions = [
+        { type: actionTypes.CREATE_BOOKING, user: fakeUser.data },
+      ];
+
+      await store.dispatch(userActions.createUserBooking({}));
+
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    test('should dispatch the correct action', async () => {
+      axios.put = jest.fn().mockRejectedValueOnce(fakeError);
+      const expectedActions = [
+        { type: actionTypes.CREATE_BOOKING_ERROR, userError: fakeError },
+      ];
+
+      await store.dispatch(userActions.createUserBooking({}));
 
       expect(store.getActions()).toEqual(expectedActions);
     });
