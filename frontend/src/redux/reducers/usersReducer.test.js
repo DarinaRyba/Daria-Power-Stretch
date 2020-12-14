@@ -106,5 +106,25 @@ describe('reducers', () => {
       const result = usersReducer(initialState, loadAddUserErrorAction);
       expect(result).toEqual({ errorUser: 'error' });
     });
+
+    test('should add user to the state', () => {
+      const loadFetchUserAction = {
+        type: actionTypes.FETCH_USER,
+        user: 'user',
+      };
+
+      const result = usersReducer(initialState, loadFetchUserAction);
+      expect(result).toEqual({ user: 'user' });
+    });
+
+    test('should add the errorUser to the state', () => {
+      const loadFetchUserErrorAction = {
+        type: actionTypes.FETCH_USER_ERROR,
+        userError: 'error',
+      };
+
+      const result = usersReducer(initialState, loadFetchUserErrorAction);
+      expect(result).toEqual({ errorUser: 'error' });
+    });
   });
 });

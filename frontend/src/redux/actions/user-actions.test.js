@@ -221,4 +221,42 @@ describe('user-actions', () => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
+
+  describe('fetchUser', () => {
+    let fakeUser;
+    let fakeError;
+
+    beforeEach(() => {
+      store = mockStore();
+      fakeUser = { data: {} };
+      fakeError = 'error';
+    });
+
+    afterEach(() => {
+      jest.resetAllMocks();
+      store = null;
+    });
+
+    test('should dispatch the correct action', async () => {
+      axios.get = jest.fn().mockResolvedValueOnce(fakeUser);
+      const expectedActions = [
+        { type: actionTypes.FETCH_USER, user: fakeUser.data },
+      ];
+
+      await store.dispatch(userActions.fetchUser({}));
+
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    test('should dispatch the correct action', async () => {
+      axios.get = jest.fn().mockRejectedValueOnce(fakeError);
+      const expectedActions = [
+        { type: actionTypes.FETCH_USER_ERROR, userError: fakeError },
+      ];
+
+      await store.dispatch(userActions.fetchUser({}));
+
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
 });
