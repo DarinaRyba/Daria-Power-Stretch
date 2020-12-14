@@ -41,8 +41,10 @@ describe('userController', () => {
       const req = {
         body: { uid: 'uid' }
       };
-      userSchema.findOneAndUpdate = jest.fn().mockImplementationOnce((query, body, upsert, callback) => {
-        callback(false, {});
+      userSchema.findOneAndUpdate = jest.fn().mockReturnValue({
+        populate: jest.fn().mockReturnValue({
+          exec: jest.fn().mockImplementationOnce((callback) => callback(false))
+        })
       });
       userController.patchUserMethod(req, res);
       expect(res.json).toHaveBeenCalled();
@@ -57,8 +59,10 @@ describe('userController', () => {
         body: { uid: 'uid' }
       };
 
-      userSchema.findOneAndUpdate = jest.fn().mockImplementationOnce((query, body, upsert, callback) => {
-        callback(true, {});
+      userSchema.findOneAndUpdate = jest.fn().mockReturnValue({
+        populate: jest.fn().mockReturnValue({
+          exec: jest.fn().mockImplementationOnce((callback) => callback(true))
+        })
       });
       userController.patchUserMethod(req, res);
       expect(res.send).toHaveBeenCalled();
@@ -112,9 +116,12 @@ describe('userController', () => {
       const req = {
         body: { user: { _id: '1' } }
       };
-      const dayFound = { days: [{ body: { day: '1' } }] };
+      const days = [{ body: { _id: '1' } }];
+      scheduleSchema.findOne = jest.fn().mockImplementationOnce((queryFound, callback) => {
+        callback(false, { participants: [{ body: { user: { _id: '1' } } }], save: jest.fn() });
+      });
       userSchema.findOne = jest.fn().mockImplementationOnce((query, callback) => {
-        callback(false, { dayFound, save: jest.fn() });
+        callback(false, { days, save: jest.fn() });
       });
 
       await userController.putUserMethod(req, res);

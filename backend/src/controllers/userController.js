@@ -17,9 +17,9 @@ function usersController (userSchema, scheduleSchema) {
       .populate({ path: 'days' })
       .exec((usersError, user) => {
         if (usersError) {
-          return res.send(usersError);
+          res.send(usersError);
         }
-        return res.json(user);
+        res.json(user);
       });
   }
 
@@ -45,8 +45,6 @@ function usersController (userSchema, scheduleSchema) {
         res.send(userError);
       } else {
         user.days.push(dayFound._id);
-        console.log(dayFound);
-        console.log(queryFound._id);
         user.save();
         res.send(user);
       }
