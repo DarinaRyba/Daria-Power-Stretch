@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Login from './Login';
-import { signInWithGoogle, signOut, saveUserFromLocalStorage } from '../../redux/actions/user-actions';
+import { signInWithGoogle, signOut, fetchUser } from '../../redux/actions/user-actions';
 
 jest.mock('../../redux/actions/user-actions');
 
@@ -63,10 +63,7 @@ describe('Login', () => {
     expect(signOut).toHaveBeenCalled();
   });
 
-  test('should call userInLocalStorage', () => {
-    const initialState = { usersReducer: { user: null }, isLogged: false };
-    const store = buildStore(initialState);
-    store.dispatch = jest.fn();
+  test('should call fetchUser', () => {
     const userMock = {
       _id: 'someId',
     };
@@ -77,6 +74,10 @@ describe('Login', () => {
       value: localStorage,
     });
     JSON.parse = jest.fn().mockReturnValue(userMock);
+    const initialState = { usersReducer: {}, isLogged: false };
+    const store = buildStore(initialState);
+    store.dispatch = jest.fn();
+    window.localStorage.getItem('user');
 
     const Wrapper = ({ children }) => (
       <Provider store={store}>
@@ -87,6 +88,6 @@ describe('Login', () => {
     );
 
     render(<Login />, { wrapper: Wrapper });
-    expect(saveUserFromLocalStorage).toHaveBeenCalled();
+    expect(fetchUser).toHaveBeenCalled();
   });
 });
