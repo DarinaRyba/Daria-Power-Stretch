@@ -6,7 +6,7 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import BurgerButton from './BurgerButton';
 
-jest.mock('../../redux/actions/workout-actions');
+jest.mock('../../redux/actions/user-actions');
 
 const buildStore = configureStore([thunk]);
 
@@ -16,6 +16,46 @@ describe('BurgerButton', () => {
   });
 
   test('should open menu', () => {
+    const initialState = { usersReducer: { user: { name: 'a_name' } }, isLogged: true };
+    const store = buildStore(initialState);
+    store.dispatch = jest.fn();
+    const Wrapper = ({ children }) => (
+      <Provider store={store}>
+        <BrowserRouter>
+          {children}
+        </BrowserRouter>
+      </Provider>
+    );
+
+    render(<BurgerButton />, { wrapper: Wrapper });
+
+    const buttonElement = document.querySelector('#btn-test');
+    const event = { currentTarget: buttonElement };
+    fireEvent.click(buttonElement, event);
+
+    expect(buttonElement).toBeInTheDocument();
+  });
+
+  test('should show link My Account', () => {
+    const initialState = { usersReducer: { user: { name: 'a_name' } }, isLogged: true };
+    const store = buildStore(initialState);
+    store.dispatch = jest.fn();
+
+    const Wrapper = ({ children }) => (
+      <Provider store={store}>
+        <BrowserRouter>
+          {children}
+        </BrowserRouter>
+      </Provider>
+    );
+
+    render(<BurgerButton />, { wrapper: Wrapper });
+    const linkElement = document.querySelector('#link-myAccount');
+
+    expect(linkElement).toBeInTheDocument();
+  });
+
+  test('should not show link My Account', () => {
     const initialState = { usersReducer: { user: null }, isLogged: false };
     const store = buildStore(initialState);
     store.dispatch = jest.fn();
@@ -28,13 +68,9 @@ describe('BurgerButton', () => {
       </Provider>
     );
 
-    const handleClick = jest.fn();
-
     render(<BurgerButton />, { wrapper: Wrapper });
-    const buttonElement = document.querySelector('.burger-btn');
-    const event = { currentTarget: buttonElement };
-    fireEvent.click(buttonElement, event);
+    const linkElement = document.querySelector('#link-myAccount');
 
-    expect(handleClick).toHaveBeenCalled();
+    expect(linkElement).not.toBeInTheDocument();
   });
 });

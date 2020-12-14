@@ -71,14 +71,12 @@ function WorkoutDetail({
           <div className="icon-wrapper">
             <AccessTimeIcon />
             <p className="icon-separator">
-              {' '}
               {workout?.duration}
             </p>
           </div>
           <div className="icon-wrapper">
             <p className="icon-separator">
               <PlaceIcon />
-              {' '}
               {workout?.place}
             </p>
           </div>
@@ -87,7 +85,6 @@ function WorkoutDetail({
           <div className="icon-wrapper">
             <EventIcon />
             <p className="icon-separator">
-              {' '}
               {workout?.scheduleInfo}
             </p>
           </div>
@@ -101,7 +98,7 @@ function WorkoutDetail({
               </Button>
             )
             : (
-              <p className="btn-book">
+              <p className="btn-notLogged">
                 Login to book
               </p>
             )}
@@ -116,7 +113,7 @@ function WorkoutDetail({
             <Modal.Footer>
               <button
                 type="button"
-                className="link"
+                className="link-close"
                 onClick={handleClose}
               >
                 Close

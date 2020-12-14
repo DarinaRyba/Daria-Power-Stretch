@@ -22,10 +22,15 @@ describe('user-actions', () => {
       jest.spyOn(firebase, 'auth').mockImplementation(() => ({
         signInWithPopup: jest.fn().mockImplementation(() => Promise.resolve({
           user: {
-            displayName: { result: { additionalUserInfo: { profile: { name: 'a' } } } },
-            uid: { result: { additionalUserInfo: { profile: { uid: 'b' } } } },
-            photoURL: { result: { additionalUserInfo: { profile: { photoURL: 'c' } } } },
-            email: { result: { additionalUserInfo: { profile: { email: 'd' } } } },
+            displayName: { additionalUserInfo: { profile: { name: 'a' } } },
+            uid: { additionalUserInfo: { profile: { uid: 'b' } } },
+            photoURL: { additionalUserInfo: { profile: { photoURL: 'c' } } },
+            email: { additionalUserInfo: { profile: { email: 'd' } } },
+          },
+          additionalUserInfo: {
+            profile: {
+              name: '1', uid: '2', photURL: '3', email: '4',
+            },
           },
         })),
       }));
@@ -40,19 +45,20 @@ describe('user-actions', () => {
       store = null;
     });
 
-    xtest('should dispatch the correct action', async () => {
+    test('should dispatch the correct action', async () => {
+      axios.patch = jest.fn().mockResolvedValueOnce();
+
       const user = {
-        displayName: { result: { additionalUserInfo: { profile: { name: 'a' } } } },
-        uid: { result: { additionalUserInfo: { profile: { uid: 'b' } } } },
-        photoURL: { result: { additionalUserInfo: { profile: { photoURL: 'c' } } } },
-        email: { result: { additionalUserInfo: { profile: { email: 'd' } } } },
+        displayName: { additionalUserInfo: { profile: { name: 'a' } } },
+        uid: { additionalUserInfo: { profile: { uid: 'b' } } },
+        photoURL: { additionalUserInfo: { profile: { photoURL: 'c' } } },
+        email: { additionalUserInfo: { profile: { email: 'd' } } },
       };
       const expectedActions = [
         { type: actionTypes.AUTH_LOGIN, user },
       ];
 
       await store.dispatch(userActions.signInWithGoogle());
-
       expect(store.getActions()).toEqual(expectedActions);
     });
   });

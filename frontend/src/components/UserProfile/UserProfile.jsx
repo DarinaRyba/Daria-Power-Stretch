@@ -36,27 +36,24 @@ function UserProfile() {
           {`Name: ${userInLocalStorage?.displayName}`}
         </p>
         <p>
-          Email:
-          {' '}
-          {userInLocalStorage?.email}
+          {`Email: ${userInLocalStorage?.email} `}
         </p>
       </div>
       <div className="user-profile__booking">
-        <p className="booking-title-text">Booked classes</p>
-        <p className="booking-workout-text">
-          Workout:
-          {' '}
-          {userInLocalStorage?.days[0]?.workout}
-        </p>
-        <p className="booking-day-text">
-          Day:
-          {' '}
-          {userInLocalStorage?.days[0]}
-          {' '}
-          {userInLocalStorage?.days?.time}
-        </p>
-        <p className="booking-workout-text">Workout: Stretching</p>
-        <p className="booking-day-text">Day: Monday 21/12/2020, 11:30-12:45</p>
+        <p className="booking-title-text">Booked classes:</p>
+        <ul className="booked-classes-list">
+          {userInLocalStorage.days && userInLocalStorage.days.map((scheduleItem) => (
+            <li key={performance.now() * Math.random()} className="list">
+              <p className="booking-workout-text">
+                {`Workout: ${scheduleItem.workout}`}
+              </p>
+              <p className="booking-day-text">
+                {`Day: ${scheduleItem.date} Time: ${scheduleItem.time}`}
+              </p>
+            </li>
+          ))}
+
+        </ul>
       </div>
     </main>
   );

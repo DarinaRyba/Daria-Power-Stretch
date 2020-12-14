@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Login from './Login';
-import { signInWithGoogle, signOut } from '../../redux/actions/user-actions';
+import { signInWithGoogle, signOut, saveUserFromLocalStorage } from '../../redux/actions/user-actions';
 
 jest.mock('../../redux/actions/user-actions');
 
@@ -35,6 +35,16 @@ describe('Login', () => {
   });
 
   test('should signOut', () => {
+    const userMock = {
+      _id: 'someId',
+    };
+    const localStorage = {
+      getItem: jest.fn().mockReturnValue(userMock),
+    };
+    Object.defineProperty(window, 'localStorage', {
+      value: localStorage,
+    });
+    JSON.parse = jest.fn().mockReturnValue(userMock);
     const initialState = { usersReducer: { user: { name: 'a_name' } }, isLogged: true };
     const store = buildStore(initialState);
     store.dispatch = jest.fn();
@@ -51,5 +61,32 @@ describe('Login', () => {
     render(<Login />, { wrapper: Wrapper });
     document.querySelector('#btn-logout').click();
     expect(signOut).toHaveBeenCalled();
+  });
+
+  test('should call userInLocalStorage', () => {
+    const initialState = { usersReducer: { user: null }, isLogged: false };
+    const store = buildStore(initialState);
+    store.dispatch = jest.fn();
+    const userMock = {
+      _id: 'someId',
+    };
+    const localStorage = {
+      getItem: jest.fn().mockReturnValue(userMock),
+    };
+    Object.defineProperty(window, 'localStorage', {
+      value: localStorage,
+    });
+    JSON.parse = jest.fn().mockReturnValue(userMock);
+
+    const Wrapper = ({ children }) => (
+      <Provider store={store}>
+        <BrowserRouter>
+          {children}
+        </BrowserRouter>
+      </Provider>
+    );
+
+    render(<Login />, { wrapper: Wrapper });
+    expect(saveUserFromLocalStorage).toHaveBeenCalled();
   });
 });

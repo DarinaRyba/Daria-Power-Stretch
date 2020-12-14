@@ -98,13 +98,6 @@ export function saveUserFromLocalStorageSucces(user) {
   };
 }
 
-export function saveUserFromLocalStorageError(errorUser) {
-  return {
-    type: actionTypes.SAVE_USER_ERROR,
-    errorUser,
-  };
-}
-
 export function saveUserFromLocalStorage(user) {
   return async (dispatch) => {
     dispatch(saveUserFromLocalStorageSucces(user));

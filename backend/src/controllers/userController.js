@@ -13,12 +13,14 @@ function usersController (userSchema, scheduleSchema) {
 
   function patchUserMethod ({ body }, res) {
     const query = { email: body.email };
-    userSchema.findOneAndUpdate(query, body, { new: true, upsert: true, useFindAndModify: false }, (usersError, user) => {
-      if (usersError) {
-        return res.send(usersError);
-      }
-      return res.json(user);
-    });
+    userSchema.findOneAndUpdate(query, body, { new: true, upsert: true, useFindAndModify: false })
+      .populate({ path: 'days' })
+      .exec((usersError, user) => {
+        if (usersError) {
+          return res.send(usersError);
+        }
+        return res.json(user);
+      });
   }
 
   async function putUserMethod ({ body }, res) {
@@ -44,7 +46,7 @@ function usersController (userSchema, scheduleSchema) {
       } else {
         user.days.push(dayFound._id);
         console.log(dayFound);
-        console.log(body);
+        console.log(queryFound._id);
         user.save();
         res.send(user);
       }

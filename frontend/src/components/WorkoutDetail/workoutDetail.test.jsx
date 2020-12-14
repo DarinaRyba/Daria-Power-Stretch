@@ -51,7 +51,17 @@ describe('WourkoutDetail', () => {
     expect(requestWorkoutDetail).toHaveBeenCalled();
   });
 
-  xtest('should make the request to get the workout detail when click book in the model', () => {
+  test('should make the request to get the workout detail when click book in the model', () => {
+    const userMock = {
+      _id: 'someId',
+    };
+    const localStorage = {
+      getItem: jest.fn().mockReturnValue(userMock),
+    };
+    Object.defineProperty(window, 'localStorage', {
+      value: localStorage,
+    });
+    JSON.parse = jest.fn().mockReturnValue(userMock);
     const initialState = { workoutReducer: { workout: { name: 'a_name', description: 'a_description', price: 1 } }, usersReducer: { user: 'a_user' }, isLogged: true };
     const store = buildStore(initialState);
     store.dispatch = jest.fn();
@@ -69,7 +79,17 @@ describe('WourkoutDetail', () => {
 
     expect(requestWorkoutDetail).toHaveBeenCalled();
   });
-  xtest('should open the modal', () => {
+  test('should open the modal', () => {
+    const userMock = {
+      _id: 'someId',
+    };
+    const localStorage = {
+      getItem: jest.fn().mockReturnValue(userMock),
+    };
+    Object.defineProperty(window, 'localStorage', {
+      value: localStorage,
+    });
+    JSON.parse = jest.fn().mockReturnValue(userMock);
     const initialState = { workoutReducer: { workout: { name: 'a_name', description: 'a_description', price: 1 } }, usersReducer: { user: 'a_user' }, isLogged: true };
     const store = buildStore(initialState);
     store.dispatch = jest.fn();
