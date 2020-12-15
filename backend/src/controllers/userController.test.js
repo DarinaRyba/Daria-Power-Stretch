@@ -1,10 +1,34 @@
-/* eslint-disable node/no-callback-literal */
 const userSchema = require('../models/userSchema');
 const scheduleSchema = require('../models/scheduleSchema');
 const userController = require('./userController')(userSchema, scheduleSchema);
 
 describe('userController', () => {
-  describe('getMethod', () => {
+  describe('getUsersMethod', () => {
+    test('should call json', () => {
+      const res = {
+        json: jest.fn()
+      };
+      userSchema.find = jest.fn().mockImplementationOnce((query, callback) => {
+        callback(false, {});
+      });
+      userController.getUsersMethod(null, res);
+      expect(res.json).toHaveBeenCalled();
+    });
+
+    test('should call json with error', () => {
+      const res = {
+        json: jest.fn(),
+        send: jest.fn()
+      };
+      userSchema.find = jest.fn().mockImplementationOnce((query, callback) => {
+        callback(true, {});
+      });
+      userController.getUsersMethod(null, res);
+      expect(res.send).toHaveBeenCalled();
+    });
+  });
+
+  describe('getUserMethod', () => {
     test('should call json', () => {
       const req = {
         params: { userId: { _id: '1' } }
