@@ -73,7 +73,7 @@ function BurgerButton({ user }) {
             <Link
               id="link-myAccount"
               className="link"
-              to="/myAccount"
+              to={`/users/${user._id}`}
             >
               {' '}
               <MenuItem onClick={handleClose}>My Account</MenuItem>

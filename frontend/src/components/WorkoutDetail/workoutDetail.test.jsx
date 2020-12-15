@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import thunk from 'redux-thunk';
 import WorkoutDetail from './WorkoutDetail';
 import { requestWorkoutDetail } from '../../redux/actions/workout-actions';
+import { createUserBooking } from '../../redux/actions/user-actions';
 
 jest.mock('../../redux/actions/workout-actions');
 jest.mock('../../redux/actions/user-actions');
@@ -83,6 +84,7 @@ describe('WourkoutDetail', () => {
       usersReducer: { user: 'a_user' },
       isLogged: true,
     };
+
     const store = buildStore(initialState);
     store.dispatch = jest.fn();
     const Wrapper = ({ children }) => (
@@ -94,22 +96,15 @@ describe('WourkoutDetail', () => {
     );
 
     render(<WorkoutDetail match={{ params: { workoutId: '' } }} />, { wrapper: Wrapper });
+    const buttonElementOpenModal = document.querySelector('#btn-book');
+    fireEvent.click(buttonElementOpenModal, 'handleShow');
     const buttonElement = document.querySelector('#modal__btn-book');
     fireEvent.click(buttonElement);
 
-    expect(requestWorkoutDetail).toHaveBeenCalled();
+    expect(createUserBooking).toHaveBeenCalled();
   });
-  test('should open the modal', () => {
-    const userMock = {
-      _id: 'someId',
-    };
-    const localStorage = {
-      getItem: jest.fn().mockReturnValue(userMock),
-    };
-    Object.defineProperty(window, 'localStorage', {
-      value: localStorage,
-    });
-    JSON.parse = jest.fn().mockReturnValue(userMock);
+
+  test('should render if there is no user', () => {
     const initialState = {
       workoutReducer: {
         workout: {
@@ -123,8 +118,8 @@ describe('WourkoutDetail', () => {
           _id: '1',
         },
       },
-      usersReducer: { user: 'a_user' },
-      isLogged: true,
+      usersReducer: { user: null },
+      isLogged: false,
     };
     const store = buildStore(initialState);
     store.dispatch = jest.fn();
@@ -135,13 +130,9 @@ describe('WourkoutDetail', () => {
         </BrowserRouter>
       </Provider>
     );
-    const handleShow = jest.fn();
 
     render(<WorkoutDetail match={{ params: { workoutId: '' } }} />, { wrapper: Wrapper });
 
-    const buttonElement = document.querySelector('#btn-book');
-    fireEvent.click(buttonElement);
-
-    expect(handleShow).toHaveBeenCalled();
+    expect(document.querySelector('.btn-notLogged').textContent).toBe('Login to book');
   });
 });

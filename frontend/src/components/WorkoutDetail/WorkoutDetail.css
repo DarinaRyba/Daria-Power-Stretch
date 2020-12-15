@@ -3,6 +3,7 @@
     flex-direction: column;
     margin-top: 40px;
     position: relative;
+    z-index: 10;
     
 }
 
