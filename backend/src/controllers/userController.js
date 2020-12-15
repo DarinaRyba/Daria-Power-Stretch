@@ -1,4 +1,14 @@
-function usersController (userSchema, scheduleSchema) {
+function userController (userSchema, scheduleSchema) {
+  function getUsersMethod (req, res) {
+    const query = {};
+    userSchema.find(query, (usersError, user) => {
+      if (usersError) {
+        res.send(usersError);
+      }
+      res.json(user);
+    });
+  }
+
   function getUserMethod (req, res) {
     const query = { _id: req.params.userId };
     userSchema.findOne(query)
@@ -28,6 +38,7 @@ function usersController (userSchema, scheduleSchema) {
 
     let dayFound;
     const queryFound = { date: body.day };
+    console.log(queryFound);
     await scheduleSchema.findOne(queryFound, (daysError, days) => {
       if (daysError) {
         res.send(daysError);
@@ -49,10 +60,9 @@ function usersController (userSchema, scheduleSchema) {
       }
     });
   }
-
   return {
-    getUserMethod, patchUserMethod, putUserMethod
+    getUserMethod, patchUserMethod, putUserMethod, getUsersMethod
   };
 }
 
-module.exports = usersController;
+module.exports = userController;

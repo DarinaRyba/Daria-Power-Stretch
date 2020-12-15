@@ -1,11 +1,12 @@
 const { Router } = require('express');
-const usersController = require('./../controllers/userController');
+const userController = require('./../controllers/userController');
 
 function workoutRouter (userSchema, scheduleSchema) {
   const router = Router();
-  const users = usersController(userSchema, scheduleSchema);
+  const users = userController(userSchema, scheduleSchema);
 
   router.route('/')
+    .get(users.getUsersMethod)
     .patch(users.patchUserMethod)
     .put(users.putUserMethod);
 
