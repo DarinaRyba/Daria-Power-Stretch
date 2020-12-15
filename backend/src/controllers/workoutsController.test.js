@@ -1,4 +1,3 @@
-/* eslint-disable node/no-callback-literal */
 const workoutSchema = require('../models/workoutSchema');
 const workoutsController = require('./workoutsController')(workoutSchema);
 
