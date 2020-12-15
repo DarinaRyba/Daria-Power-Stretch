@@ -27,8 +27,8 @@ describe('UserProfile', () => {
     );
 
     render(<Footer />, { wrapper: Wrapper });
-    const expectedText = document.querySelector('.footer__contact');
+    const expectedText = document.querySelector('img');
 
-    expect(expectedText).toBeInTheDocument('CONTACT ME');
+    expect(expectedText).toBeInTheDocument('');
   });
 });
