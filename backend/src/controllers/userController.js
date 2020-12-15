@@ -60,6 +60,7 @@ function userController (userSchema, scheduleSchema) {
       }
     });
   }
+
   return {
     getUserMethod, patchUserMethod, putUserMethod, getUsersMethod
   };
