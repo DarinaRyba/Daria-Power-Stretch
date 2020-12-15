@@ -31,4 +31,24 @@ describe('WorkoutSlider', () => {
 
     expect(expectedText).toBeInTheDocument('Stretching');
   });
+
+  test('should render', () => {
+    const initialState = {};
+    const store = buildStore(initialState);
+    store.dispatch = jest.fn();
+
+    const Wrapper = ({ children }) => (
+      <Provider store={store}>
+        <BrowserRouter>
+          {children}
+        </BrowserRouter>
+      </Provider>
+    );
+
+    render(<WorkoutSlider />, { wrapper: Wrapper });
+    const selectElement = document.querySelector('.carousel-container');
+    fireEvent.select(selectElement);
+
+    expect(selectElement).toBeDefined();
+  });
 });

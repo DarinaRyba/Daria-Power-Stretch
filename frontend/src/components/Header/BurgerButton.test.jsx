@@ -36,6 +36,28 @@ describe('BurgerButton', () => {
     expect(buttonElement).toBeInTheDocument();
   });
 
+  test('should close menu', () => {
+    const initialState = { usersReducer: { user: { name: 'a_name' } }, isLogged: true };
+    const store = buildStore(initialState);
+    store.dispatch = jest.fn();
+    const Wrapper = ({ children }) => (
+      <Provider store={store}>
+        <BrowserRouter>
+          {children}
+        </BrowserRouter>
+      </Provider>
+    );
+
+    render(<BurgerButton />, { wrapper: Wrapper });
+
+    const buttonElement = document.querySelector('#btn-test');
+    fireEvent.click(buttonElement);
+    const closeButtonElement = document.querySelector('#simple-menu');
+    fireEvent.click(buttonElement);
+
+    expect(closeButtonElement).toBeDefined();
+  });
+
   test('should show link My Account', () => {
     const initialState = { usersReducer: { user: { name: 'a_name' } }, isLogged: true };
     const store = buildStore(initialState);

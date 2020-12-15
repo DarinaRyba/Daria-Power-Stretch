@@ -10,26 +10,26 @@ function AboutMe() {
       <div className="about-me-text-container">
         <h1>About Me</h1>
         <p className="about-me-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-          sed do eiusmod tempor incididunt ut labore et dolore magna
-          aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-          ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          Duis aute irure dolor in reprehenderit in voluptate velit
-          esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-          occaecat cupidatat non proident, sunt in culpa qui
-          .
+          My name is Daria. I have been involved with movement and exercise for
+          most of my life, practicing different  dance
+          styles and physical activities.
         </p>
         <p className="about-me-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-          sed do eiusmod tempor incididunt ut labore et dolore magna
-          aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-          ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          Duis aute irure dolor in reprehenderit in voluptate velit
-          esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-          occaecat cupidatat non proident, sunt in culpa qui
-          .
+          In 2009 I qualified as a Pilates and Body flex instructor from the
+          Lesgaft National State University of Physical Education in St. Petersburg.
+          And since then, I completely fell in love with Pilates technique.
+          I discovered a passion for helping people feel great through breath,
+          movement and body work.
+          I assisted many teacher trainings and
+          seminars to develop a deeper understanding of the
+          anatomy and movement and to create my own style of classes.
+        </p>
+        <p className="about-me-text">
+          In my classes I use mix technique of Pilates,
+          Yoga, gymnastic, assisted stretching and body ballet.
+          I’m passionate about movement as a tool for physical,
+          mental and emotional health and self-discovery.
+          And I’m very excited to help you become more flexible.
         </p>
       </div>
     </main>

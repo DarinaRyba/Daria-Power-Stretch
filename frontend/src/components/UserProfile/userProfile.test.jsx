@@ -54,4 +54,27 @@ describe('UserProfile', () => {
 
     expect(fetchUser).toHaveBeenCalled();
   });
+
+  test('should print booked clases', () => {
+    const initialState = {
+      usersReducer: {
+        user: {
+          days: [{ date: '1', workout: '2', time: '3' }], photoURL: 'a_photo', displayName: 'a_name', email: 'an_email',
+        },
+      },
+    };
+    const store = buildStore(initialState);
+    store.dispatch = jest.fn();
+    const Wrapper = ({ children }) => (
+      <Provider store={store}>
+        <BrowserRouter>
+          {children}
+        </BrowserRouter>
+      </Provider>
+    );
+
+    render(<UserProfile match={{ params: { userId: '1' } }} />, { wrapper: Wrapper });
+
+    expect(fetchUser).toHaveBeenCalled();
+  });
 });

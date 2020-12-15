@@ -38,7 +38,6 @@ function userController (userSchema, scheduleSchema) {
 
     let dayFound;
     const queryFound = { date: body.day };
-    console.log(queryFound);
     await scheduleSchema.findOne(queryFound, (daysError, days) => {
       if (daysError) {
         res.send(daysError);
