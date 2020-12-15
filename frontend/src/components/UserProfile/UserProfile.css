@@ -13,7 +13,6 @@
     height: 150px;
     border-radius: 0 0 250px 250px;
     background-color: #dddfdd;
-
 }
 
 .user-profile__info {
@@ -22,6 +21,7 @@
     margin-top: 30px;
     font-family: 'Lato', sans-serif;
     color: #41555a;
+    font-size: 18px;
 
 }
 
@@ -30,13 +30,11 @@
     color: #41555a;
     margin-bottom: 10px;
     padding: 20px;
-    box-shadow: 0px 1px 2px 1px #7955483b;
-    width: 70%;
-    margin-left: 10px;
     align-self: center;
 }
 .booked-classes-list {
     list-style-type: none;
+    color: #607d8b;
 }
 .booking-workout-text {
     margin-top: 10px;
@@ -50,6 +48,7 @@
 
 .booking-title-text {
     font-size: 16px;
+    text-align: center;
 }
 
 .avatar {
@@ -60,5 +59,13 @@
 @media screen and (min-width: 600px) {
     .user-profile-container {
         width: 80vh;
+    }
+    .user-profile__booking {
+        font-family: 'Lato', sans-serif;
+        color: #41555a;
+        margin-bottom: 10px;
+        padding: 20px;
+        margin-right: 20px;
+        align-self: center;
     }
 }

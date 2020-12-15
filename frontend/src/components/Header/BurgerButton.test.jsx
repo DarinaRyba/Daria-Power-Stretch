@@ -53,7 +53,7 @@ describe('BurgerButton', () => {
     const buttonElement = document.querySelector('#btn-test');
     fireEvent.click(buttonElement);
     const closeButtonElement = document.querySelector('#simple-menu');
-    fireEvent.click(closeButtonElement);
+    fireEvent.click(buttonElement);
 
     expect(closeButtonElement).toBeDefined();
   });

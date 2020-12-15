@@ -290,37 +290,4 @@ describe('WourkoutDetail', () => {
 
     expect(document.querySelector('.btn-notLogged').textContent).toBe('Login to book');
   });
-
-  test('should not make the request to get the workout deatil', () => {
-    const initialState = {
-      workoutReducer: {
-        workout: {
-          name: 'a_name',
-          description: 'a_description',
-          price: 1,
-          image: 'an_image',
-          duration: 'duration',
-          place: 'place',
-          scheduleInfo: 'schedule',
-          _id: '1',
-
-        },
-      },
-      usersReducer: { user: 'a_name' },
-      isLogged: true,
-    };
-    const store = buildStore(initialState);
-    store.dispatch = jest.fn();
-    const Wrapper = ({ children }) => (
-      <Provider store={store}>
-        <BrowserRouter>
-          {children}
-        </BrowserRouter>
-      </Provider>
-    );
-
-    render(<WorkoutDetail match={{ params: { workoutId: '' } }} />, { wrapper: Wrapper });
-
-    expect(requestWorkoutDetail).not.toHaveBeenCalled();
-  });
 });

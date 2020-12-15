@@ -69,7 +69,7 @@ UserProfile.propTypes = {
     photoURL: PropTypes.string.isRequired,
     displayName: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
-    days: PropTypes.string.isRequired,
+    days: PropTypes.arrayOf(PropTypes.object),
   }),
   match: PropTypes.shape({
     params: PropTypes.shape({

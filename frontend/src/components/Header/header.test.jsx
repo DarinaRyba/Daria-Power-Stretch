@@ -52,6 +52,7 @@ describe('Header', () => {
     const buttonElement = document.querySelector('.link__classes');
     const event = { currentTarget: buttonElement };
     fireEvent.click(buttonElement, event);
+    fireEvent.click(buttonElement, event);
 
     expect(buttonElement).toBeInTheDocument();
   });
