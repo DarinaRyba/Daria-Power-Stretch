@@ -2,7 +2,7 @@
 
 This is a project I built for my friend Daria Afanasieva as a part of the final project in SkyLab Coders Academy.
 
-The App is a full responsive which displays a list of the workouts  and their details, with an option to book class.
+The App is a full responsive which displays a list of the workouts  and their details, with an option to book a class.
 
 # To run the project (scripts)
 
@@ -10,8 +10,8 @@ After you clone the project go inside each folder  **[frontend, backend]**  and 
 
 The scripts you can run with npm (or yarn) are:
 
--   **npm start**  (to start the server): Start both front & back
--   **npm test**  (to see unit & component tests): In each separated folder [fronend, back-end]
+-   **npm start** _(on both: frontend & backend)_. To run server and app.
+-   **npm test**  _(on both: frontend & backend)_ . To see unit & component tests.
 
   
 
@@ -19,22 +19,18 @@ The scripts you can run with npm (or yarn) are:
 
 ## MERN Stack:
 
--   **React**
+-   **React.js**
 -   **Redux**
 -   **Node.js**  (with Express)
 -   **MongoDB**  (using Mongoose)
 
-
-## Unit & Component testing:
-
-- **Jest**
-- **You can run the tests with npm test (inside each folder [frontend, backend])**
-
 ## Other Libraries & Tools:
 
+- **HTML5**
+- **CSS**
+- **Jest(TDD**
+- **FireBase(Google login)**
+- **SonarQube**
 - **EsLint (for good pratices & code styling)**
 - **Material UI**
 - **Bootstrap React**
-- **axios**
-- **react-router-dom**
-- **react-redux**
